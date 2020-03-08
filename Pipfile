@@ -19,6 +19,7 @@ pymysql = "*"
 html5lib = "*"
 plotly = "*"
 pyodbc = "*"
+flask-sqlalchemy = "*"
 
 [requires]
 python_version = "3.7"
