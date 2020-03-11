@@ -5,6 +5,8 @@ verify_ssl = true
 
 [dev-packages]
 black = "*"
+pyviz = "*"
+geoviews = "*"
 
 [packages]
 pandas = "*"
@@ -22,6 +24,9 @@ plotly = "*"
 pyodbc = "*"
 flask-sqlalchemy = "*"
 flask = "*"
+geoviews = "*"
+pyviz = "*"
+geoviews-core = "*"
 
 [requires]
 python_version = "3.7"
