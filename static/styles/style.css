@@ -80,6 +80,10 @@ body {
     background-position: center top;
 	background-size:cover;
 }
+.bodyDiv {
+    color: rgb(119, 88, 2);
+    background-color: rgb(250, 239, 178)
+}
 
 .navTrigger {
     display: none;
@@ -355,6 +359,24 @@ body {
 	padding-left:15%;
 	padding-right:15%;
 	font-size: 20px;
+}
+.myPFoot {
+	text-align: justify;
+	padding-left:15%;
+	padding-right:15%;
+    font-size: 15px;
+    color: #fff
+}
+.myHFoot {
+    text-align: left;
+    padding-right:15%;
+    font-size: 15px;
+    color: #fff;
+    text-transform: uppercase;
+}
+.page-footer {
+    background: rgb(5, 4, 3);
+    padding-top:1%
 }
 @media all and (max-width:700px){
 	.myP {
