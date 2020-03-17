@@ -66,10 +66,6 @@ df_confirmed['date'] = df_confirmed['date'].str.replace('_',"/")
 df_deaths['date'] = df_deaths['date'].str.replace('_',"/")
 df_recovered['date'] = df_recovered['date'].str.replace('_',"/")
 
-# df_confirmed['date'] =  pd.to_datetime (df_confirmed['date'],format = "%m/%d/%y")
-# df_deaths['date'] =  pd.to_datetime (df_deaths['date'], format = "%m/%d/%y")
-# df_recovered['date'] =  pd.to_datetime (df_recovered['date'], format = "%m/%d/%y")
-
 # Join the 3 tables 
 df_merged = pd.merge(df_confirmed, df_deaths,  on=['iso3', 'country_region', 'province_state','lat', 'long','date'])
 df_merged = pd.merge(df_merged, df_recovered,  on=['iso3', 'country_region', 'province_state','lat', 'long','date'])
@@ -94,5 +90,3 @@ engine.execute(f"DROP TABLE IF EXISTS {TABLENAME}")
 
 # Insert the dataframe into our database Covid
 df_merged.to_sql(name="daily_cases", con=engine, index=False)
-
-
