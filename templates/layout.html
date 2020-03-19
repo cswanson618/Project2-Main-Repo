@@ -5,7 +5,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <link rel = "stylesheet" type="text/css" href = "{{ url_for('static', filename='styles/style.css') }}">
     </head>
-    <body>
+    <body class="bodyDiv">
     <nav class="nav">
         <div class="container">
             <div class="logo">
@@ -14,7 +14,7 @@
             <div id="mainListDiv" class="main_list">
                 <ul class="navlinks">
                     <li><a href="#">About</a></li>
-                    <li><a href="#">Placeholder</a></li>
+                    <li><a href="#">Data 2</a></li>
                     <li><a href="#">Placeholder</a></li>
                     <li><a href="#">Placeholder</a></li>
                 </ul>
@@ -26,16 +26,65 @@
             </span>
         </div>
     </nav>
-
-    <section class="home">
-    </section>
-    <div style="container-fluid">
         {% block content %}{% endblock %}
-    </div>
+    <!-- Footer -->
+    <footer class="page-footer">
+
+        <!-- Footer Text -->
+        <div class="container-fluid text-center text-md-left">
+    
+        <!-- Grid row -->
+        <div class="row">
+    
+            <!-- Grid column -->
+            <div class="col-md-6 mt-md-0 mt-3">
+    
+            <!-- Content -->
+            <h3 class="myHFoot">This page developed by:</h5>
+            <p class="myPFoot">
+                Christopher Swanson - Lead Developer<br/>
+                Daniela Matos - Backend Developer/Tester<br/>
+                Ed Haarmann IV - Project Manager<br/>
+                Josh Farmer - Front End Developer<br/>
+                Sinah Kang - Backend Developer/Tester
+            </p>
+    
+            </div>
+            <!-- Grid column -->
+    
+            <hr class="clearfix w-100 d-md-none pb-3">
+    
+            <!-- Grid column -->
+            <div class="col-md-6 mb-md-0 mb-3">
+    
+            <!-- Content -->
+            <h3 class="myHFoot">Footer text 2</h5>
+            <p class="myPFoot">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio deserunt fuga perferendis modi earum
+                commodi aperiam temporibus quod nulla nesciunt aliquid debitis ullam omnis quos ipsam, aspernatur id
+                excepturi hic.</p>
+    
+            </div>
+            <!-- Grid column -->
+    
+        </div>
+        <!-- Grid row -->
+    
+        </div>
+        <!-- Footer Text -->
+    
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">2019 - 2020 University of Texas Data Visualization Bootcamp
+        </div>
+        <!-- Copyright -->
+    
+    </footer>
+    <!-- Footer -->
 
     <!-- Jquery needed -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+    <script src="{{ url_for('static', filename='analysis_plots.js') }}"></script>
+
 
     <!-- Function used to shrink nav bar removing paddings and adding black background -->
     <script>
