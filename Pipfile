@@ -22,6 +22,7 @@ plotly = "*"
 pyodbc = "*"
 flask-sqlalchemy = "*"
 flask = "*"
+country-converter = "*"
 
 [requires]
 python_version = "3.7"
