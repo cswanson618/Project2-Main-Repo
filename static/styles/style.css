@@ -25,7 +25,7 @@ body {
     float: left;
     width: auto;
     height: auto;
-    padding-left: 3rem;
+    padding-left: 0%;
 }
 
 .nav div.logo a {
@@ -359,6 +359,10 @@ body {
 	padding-left:15%;
 	padding-right:15%;
 	font-size: 20px;
+}
+.footerRow {
+    padding-left:15%;
+    padding-right:10%;
 }
 .myPFoot {
 	text-align: justify;
