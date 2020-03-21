@@ -16,26 +16,18 @@ class DictMixIn:
         }
 
 
-class Record(Base, DictMixIn):
+
+class Covid(Base, DictMixIn):
     __tablename__ = "daily_cases"
 
-    index = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True)
     iso3 = Column(String)
     country_region = Column(String)
     province_state = Column(String)
-    lat = Column(Integer)
-    long = Column(Integer)
+    lat = Column(Float)
+    long = Column(Float)
     date = Column(Date)
     confirmed = Column(Integer)
     deaths = Column(Integer)
     recovered = Column(Integer)
 
-
-class WorldTotalRecords(Base, DictMixIn):
-    __tablename__ = "world_timeseries"
-
-    id = Column(Integer, primary_key=True)
-    date = Column(Date)
-    total_confirmed = Column(Integer)
-    total_deaths = Column(Integer)
-    total_recovered = Column(Integer)
