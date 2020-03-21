@@ -23,6 +23,9 @@ pyodbc = "*"
 flask-sqlalchemy = "*"
 flask = "*"
 country-converter = "*"
+gunicorn = "*"
+flask-cors = "*"
+pycountry-convert = "*"
 
 [requires]
 python_version = "3.7"
