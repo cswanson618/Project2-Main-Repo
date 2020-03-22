@@ -15,7 +15,7 @@ app = Flask(__name__)
 # The database URI
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://root:password@127.0.0.1:3306/Covid"
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://root:kangsong87@127.0.0.1:3306/Covid"
 
 db = SQLAlchemy(app)
 
@@ -33,9 +33,9 @@ class DictMixIn:
 class Covid(db.Model, DictMixIn):
     __tablename__ = "daily_cases"
 
-    iso3 = db.Column(db.String, primary_key=True)
-    country_region = db.Column(db.String)
-    province_state = db.Column(db.String)
+    index = db.Column(db.String, primary_key=True)
+    country = db.Column(db.String)
+    state = db.Column(db.String)
     lat = db.Column(db.Float)
     long = db.Column(db.Float)
     date = db.Column(db.Integer)
