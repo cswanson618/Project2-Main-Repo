@@ -1,130 +1,68 @@
-import pandas as pd
+# Dependencies 
+import pandas as pd 
+import requests 
+from sqlalchemy import create_engine
 import country_converter as coco
-import pycountry_convert
-import pymysql
-import warnings
 
-import sqlalchemy
-from sqlalchemy import and_
-from sqlalchemy.types import Date
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.ext.automap import automap_base
-from sqlalchemy.orm import Session
-from sqlalchemy import create_engine, inspect, func
+# Get countries names and ISO3 
+countries_url = "https://github.com/lukes/ISO-3166-Countries-with-Regional-Codes/blob/master/all/all.csv"
+countries_html = requests.get(countries_url).text
+countries_df = pd.read_html(countries_html)[0]
 
-from flask import Flask, render_template, jsonify
-from datetime import datetime, timedelta
+# Covid-19 Confirmed Cases
+confirmed_url = "https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv"
+confirmed_html = requests.get(confirmed_url).text 
+confirmed_df = pd.read_html(confirmed_html)[0]
+confirmed_df = confirmed_df.iloc[:, 1:]
+confirmed_df = confirmed_df.melt(id_vars=['Country/Region', 'Province/State', 'Lat', 'Long'])
+confirmed_df = confirmed_df.rename(columns={"Country/Region": "country", "Province/State": "state", "variable":"date", "value": "confirmed"})
 
+# Covid-19 Deaths
+deaths_url = "https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Deaths.csv"
+deaths_html = requests.get(deaths_url).text 
+deaths_df = pd.read_html(deaths_html)[0]
+deaths_df = deaths_df.iloc[:, 1:]
+deaths_df = deaths_df.melt(id_vars=['Country/Region', 'Province/State', 'Lat', 'Long'])
+deaths_df = deaths_df.rename(columns={"Country/Region": "country", "Province/State": "state", "variable":"date", "value": "deaths"})
 
-# Imported raw data
-url_confirmed = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv"
-url_deaths = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Deaths.csv"
-url_recovered = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Recovered.csv"
+# Covid-19 Recovered
+recovered_url = "https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Recovered.csv"
+recovered_html = requests.get(recovered_url).text 
+recovered_df = pd.read_html(recovered_html)[0]
+recovered_df = recovered_df.iloc[:, 1:]
+recovered_df = recovered_df.melt(id_vars=['Country/Region', 'Province/State', 'Lat', 'Long'])
+recovered_df = recovered_df.rename(columns={"Country/Region": "country", "Province/State": "state", "variable":"date", "value": "recovered"})
 
-# Convert the data to a dataFrame
-df_confirmed = pd.read_csv(url_confirmed)
-df_deaths = pd.read_csv(url_deaths)
-df_recovered = pd.read_csv(url_recovered)
+# Merge three dataframes
+merged_df = pd.merge(confirmed_df, deaths_df)
+covid_df = pd.merge(merged_df, recovered_df)
 
+# Transform "Date" column into datatime format
+covid_df["date"] = pd.to_datetime(covid_df["date"])
 
-# Organize columns name to make it easy to work
-df_confirmed.columns = (
-    df_confirmed.columns.str.strip().str.lower().str.replace("/", "_")
-)
-df_deaths.columns = df_deaths.columns.str.strip().str.lower().str.replace("/", "_")
-df_recovered.columns = (
-    df_recovered.columns.str.strip().str.lower().str.replace("/", "_")
-)
+### Add column ISO3 to "covid_df" ###
+# covid_df1 = covid_df.loc[covid_df["country"] != "Cruise Ship"]
+# cc = coco.CountryConverter()
+# covid_df1 = covid_df1.replace(to_replace="UK", value="United Kingdom")
+# country_list = list(covid_df1["country"])
+# standard_names = cc.convert(names=country_list, to="name_short")
+# covid_df1["iso3"] = cc.convert(names=standard_names, to="iso3")
+# covid_df = pd.merge(covid_df, covid_df1, how="outer")
 
-# Change "UK" for "United Kingdom"
-df_confirmed = df_confirmed.replace(to_replace="UK", value="United Kingdom")
-
-df_deaths = df_deaths.replace(to_replace="UK", value="United Kingdom")
-
-df_recovered = df_recovered.replace(to_replace="UK", value="United Kingdom")
-
-# Add column ISO3 to each table
-some_names_confirmed = list(df_confirmed.country_region)
-standard_names = coco.convert(
-    names=some_names_confirmed, to="name_short", not_found="n/a"
-)
-iso3_codes = coco.convert(names=standard_names, to="iso3", not_found=None)
-df_confirmed["iso3"] = iso3_codes
-
-some_names_deaths = list(df_deaths.country_region)
-standard_names = coco.convert(names=some_names_deaths, to="name_short", not_found="n/a")
-iso3_codes = coco.convert(names=standard_names, to="iso3", not_found=None)
-df_deaths["iso3"] = iso3_codes
-
-some_names_recovered = list(df_recovered.country_region)
-standard_names = coco.convert(
-    names=some_names_recovered, to="name_short", not_found="n/a"
-)
-iso3_codes = coco.convert(names=standard_names, to="iso3", not_found=None)
-df_recovered["iso3"] = iso3_codes
-
-# Change columns date position from columns to rows
-df_confirmed = df_confirmed.melt(
-    id_vars=["iso3", "country_region", "province_state", "lat", "long"]
-).rename(columns={"variable": "date", "value": "confirmed"})
-df_deaths = df_deaths.melt(
-    id_vars=["iso3", "country_region", "province_state", "lat", "long"]
-).rename(columns={"variable": "date", "value": "confirmed"})
-df_recovered = df_recovered.melt(
-    id_vars=["iso3", "country_region", "province_state", "lat", "long"]
-).rename(columns={"variable": "date", "value": "confirmed"})
-
-# Fix the date format
-df_confirmed["date"] = df_confirmed["date"].str.replace("_", "-")
-df_deaths["date"] = df_deaths["date"].str.replace("_", "-")
-df_recovered["date"] = df_recovered["date"].str.replace("_", "-")
-
-# Join the 3 tables
-df_merged = pd.merge(
-    df_confirmed,
-    df_deaths,
-    on=["iso3", "country_region", "province_state", "lat", "long", "date"],
-)
-df_merged = pd.merge(
-    df_merged,
-    df_recovered,
-    on=["iso3", "country_region", "province_state", "lat", "long", "date"],
-)
-
-# Rename columns to confirmed, deaths and recovered
-df_merged = df_merged.rename(
-    columns={
-        "confirmed_x": "confirmed",
-        "confirmed_y": "deaths",
-        "confirmed": "recovered",
-    }
-)
-
-# Format datetime and set index to be used as primary key
-df_merged["date"] = pd.to_datetime(df_merged["date"], format="%m-%d-%y")
-df_merged = df_merged.reset_index()
-
-# Make the Covid table a html table
-covid_table_html = df_merged.to_html()
-
-# Create another table with totals
-
+## Summary table 
 # we are not sure if the most current date is today or yesterday.
-last_update = [df_merged["date"].max()]
-
-total_countries_infected = df_merged["iso3"].nunique()
-
+last_update = [covid_df["date"].max()]
+total_countries_infected = covid_df["country"].nunique() - 1
 # Find the total number per date
-confirmed_byDate = df_merged.groupby("date").sum()["confirmed"]
+confirmed_byDate = covid_df.groupby("date").sum()["confirmed"]
 # The last value is the total world
 total_confirmed_world = confirmed_byDate[-1]
 # Find total deaths
-deaths_byDate = df_merged.groupby("date").sum()["deaths"]
+deaths_byDate = covid_df.groupby("date").sum()["deaths"]
 total_deaths_world = deaths_byDate[-1]
 # Find total deaths
-recovered_byDate = df_merged.groupby("date").sum()["recovered"]
+recovered_byDate = covid_df.groupby("date").sum()["recovered"]
 total_recovered_world = recovered_byDate[-1]
-
 
 summary = pd.DataFrame(
     {
@@ -136,31 +74,26 @@ summary = pd.DataFrame(
     }
 )
 
+# Aggregate by county
+# confirmed_by_country_df = covid_df.groupby(["date", "country"])["confirmed"].sum().to_frame().reset_index()
 
-# Insert tables to Covid Database in MySQL with 3 tables
-USER = "root"
-PASSWORD = "Amd230313"
-HOST = "127.0.0.1"
-PORT = "3306"
+# Connect to the "Covid" database in MySQL (CHANGE PASSWORD)
+HOSTNAME = "127.0.0.1"
+PORT = 3306
+USERNAME = "root"
+PASSWORD = "kangsong87"
+DIALECT = "mysql"
+DRIVER = "pymysql"
 DATABASE = "Covid"
-TABLE_CASES = "daily_cases"
-TABLE_SUMMARY = "summary"
-TABLE_WORLD_TIMESERIES = "world_timeseries"
 
-engine = create_engine(f"mysql+pymysql://{USER}:{PASSWORD}@{HOST}:{PORT}", echo=False)
+connection_string = ( f"{DIALECT}+{DRIVER}://{USERNAME}:{PASSWORD}@{HOSTNAME}:{PORT}/{DATABASE}" )
+engine = create_engine(connection_string)
 
-engine.execute(f"USE {DATABASE}")
+# Create "daily_cases" table in "Covid" database with "covid_db" dataframe
+covid_df.to_sql(con=engine, name="daily_cases", if_exists="replace")
+summary.to_sql(con=engine, name="summary", if_exists="replace")
+countries_df.to_sql(con=engine, name="countries", if_exists="replace")
 
-# Drop the tables so we can insert new updated data
-engine.execute(f"DROP TABLE IF EXISTS {TABLE_CASES}")
-engine.execute(f"DROP TABLE IF EXISTS {TABLE_SUMMARY}")
-engine.execute(f"DROP TABLE IF EXISTS {TABLE_WORLD_TIMESERIES}")
-
-# Insert the dataframe into our database Covid
-df_merged.to_sql(name="daily_cases", con=engine, index=False)
-summary.to_sql(name="summary", con=engine, index=False)
-
-engine.execute(
-    "CREATE table world_timeseries (id INT NOT NULL auto_increment, date datetime, total_confirmed bigint(20), total_deaths bigint(20), total_recovered bigint(20), primary key (id)) SELECT date, SUM(confirmed) as total_confirmed, SUM(deaths) as total_deaths, SUM(recovered) as total_recovered FROM Covid.daily_cases GROUP BY date"
-    )
-
+# engine.execute(
+#     "CREATE table world_timeseries (id INT NOT NULL auto_increment, date datetime, total_confirmed bigint(20), total_deaths bigint(20), total_recovered bigint(20), primary key (id)) SELECT date, SUM(confirmed) as total_confirmed, SUM(deaths) as total_deaths, SUM(recovered) as total_recovered FROM Covid.daily_cases GROUP BY date"
+#     )
