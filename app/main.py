@@ -27,14 +27,15 @@ def show_records():
     return jsonify([record.to_dict() for record in records])
 
 
-# All cases by date for each country
-@app.route("/country/<country>")
-def usa(country):
-    usa = (
-        app.session.query(models.Record).filter_by(iso3=country).all()
-    )
-    return jsonify([record.to_dict() for record in usa])
-    
+# All cases by date by country.
+@app.route("/country/<iso3>")
+def usa(iso3):
+    try:
+        country = app.session.query(models.Record).filter_by(iso3=iso3).all()
+        return jsonify([record.to_dict() for record in country])
+    except:
+        return jsonify()
+
 
 # World cases
 @app.route("/total_world")
