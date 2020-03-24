@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block content %}
+<section class="home">
+</section>
+<div class='bodyDiv' style="container-fluid">
+    <h2 class="myH2">Here is a list of all routes we have</h2>
+    <div class="col-md-6 mb-mb-0 mb-3">
+    <p>
+            <ul class="list-group">
+                <li class="list-group-item h3 text-center">
+                    <a href="{{ url_for('show_records') }}">Show Records</a>
+                </li>
+                <li class="list-group-item h3 text-center">
+                    <a href="{{ url_for('usa') }}">USA</a>
+                </li>
+                <li class="list-group-item h3 text-center">
+                    <a href="{{ url_for('total_world') }}">Total World</a>
+                </li>
+                <!-- <li>
+                    <a href="{{ url_for('show_records') }}">Show Records</a>
+                </li> -->
+            </ul>
+        </p>
+    </div>
+</div>
+{% endblock %}

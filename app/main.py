@@ -1,6 +1,6 @@
 from typing import List
 
-from flask import Flask, _app_ctx_stack, jsonify, url_for
+from flask import Flask, _app_ctx_stack, jsonify, url_for, render_template, request, Flask
 from flask_cors import CORS
 from sqlalchemy.orm import scoped_session
 from sqlalchemy import func
@@ -16,8 +16,12 @@ app.session = scoped_session(SessionLocal, scopefunc=_app_ctx_stack.__ident_func
 
 
 @app.route("/")
-def main():
-    return f"See the data at {url_for('show_records')}"
+def home():
+    return render_template("index.html")
+
+@app.route("/routes")
+def routes():
+    return render_template("routes.html")
 
 
 # All records
