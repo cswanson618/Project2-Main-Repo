@@ -11,16 +11,14 @@
                     <a href="{{ url_for('show_records') }}">Show Records</a>
                 </li>
                 <li class="list-group-item h3 text-center">
-                    <a href="{{ url_for('usa') }}">USA</a>
-                </li>
-                <li class="list-group-item h3 text-center">
                     <a href="{{ url_for('total_world') }}">Total World</a>
                 </li>
-                <!-- <li>
-                    <a href="{{ url_for('show_records') }}">Show Records</a>
-                </li> -->
+                <li class="list-group-item h3 text-center">
+                    <a href="{{ url_for('country_by_ISO3', iso3= 'USA') }}">USA Records</a>
+                </li>
             </ul>
         </p>
     </div>
 </div>
 {% endblock %}
+

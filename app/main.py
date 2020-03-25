@@ -33,7 +33,7 @@ def show_records():
 
 # All cases by date by country.
 @app.route("/country/<iso3>")
-def usa(iso3):
+def country_by_ISO3(iso3):
     try:
         country = app.session.query(models.Record).filter_by(iso3=iso3).all()
         return jsonify([record.to_dict() for record in country])
