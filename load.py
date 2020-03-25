@@ -15,7 +15,7 @@ confirmed_html = requests.get(confirmed_url).text
 confirmed_df = pd.read_html(confirmed_html)[0]
 confirmed_df = confirmed_df.iloc[:, 1:]
 confirmed_df = confirmed_df.melt(id_vars=['Country/Region', 'Province/State', 'Lat', 'Long'])
-confirmed_df = confirmed_df.rename(columns={"Country/Region": "country", "Province/State": "state", "variable":"date", "value": "confirmed"})
+confirmed_df = confirmed_df.rename(columns={"Country/Region": "country_region", "Province/State": "province_state", "variable":"date", "value": "confirmed"})
 
 # Covid-19 Deaths
 deaths_url = "https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Deaths.csv"
@@ -23,7 +23,7 @@ deaths_html = requests.get(deaths_url).text
 deaths_df = pd.read_html(deaths_html)[0]
 deaths_df = deaths_df.iloc[:, 1:]
 deaths_df = deaths_df.melt(id_vars=['Country/Region', 'Province/State', 'Lat', 'Long'])
-deaths_df = deaths_df.rename(columns={"Country/Region": "country", "Province/State": "state", "variable":"date", "value": "deaths"})
+deaths_df = deaths_df.rename(columns={"Country/Region": "country_region", "Province/State": "province_state", "variable":"date", "value": "deaths"})
 
 # Covid-19 Recovered
 recovered_url = "https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Recovered.csv"
@@ -31,7 +31,7 @@ recovered_html = requests.get(recovered_url).text
 recovered_df = pd.read_html(recovered_html)[0]
 recovered_df = recovered_df.iloc[:, 1:]
 recovered_df = recovered_df.melt(id_vars=['Country/Region', 'Province/State', 'Lat', 'Long'])
-recovered_df = recovered_df.rename(columns={"Country/Region": "country", "Province/State": "state", "variable":"date", "value": "recovered"})
+recovered_df = recovered_df.rename(columns={"Country/Region": "country_region", "Province/State": "province_state", "variable":"date", "value": "recovered"})
 
 # Merge three dataframes
 merged_df = pd.merge(confirmed_df, deaths_df)
@@ -41,18 +41,18 @@ covid_df = pd.merge(merged_df, recovered_df)
 covid_df["date"] = pd.to_datetime(covid_df["date"])
 
 ### Add column ISO3 to "covid_df" ###
-# covid_df1 = covid_df.loc[covid_df["country"] != "Cruise Ship"]
-# cc = coco.CountryConverter()
-# covid_df1 = covid_df1.replace(to_replace="UK", value="United Kingdom")
-# country_list = list(covid_df1["country"])
-# standard_names = cc.convert(names=country_list, to="name_short")
-# covid_df1["iso3"] = cc.convert(names=standard_names, to="iso3")
-# covid_df = pd.merge(covid_df, covid_df1, how="outer")
+covid_df1 = covid_df.loc[covid_df["country_region"] != "Cruise Ship"]
+cc = coco.CountryConverter()
+covid_df1 = covid_df1.replace(to_replace="UK", value="United Kingdom")
+country_list = list(covid_df1["country_region"])
+standard_names = cc.convert(names=country_list, to="name_short")
+covid_df1["iso3"] = cc.convert(names=standard_names, to="iso3")
+covid_df = pd.merge(covid_df, covid_df1, how="outer")
 
 ## Summary table 
 # we are not sure if the most current date is today or yesterday.
 last_update = [covid_df["date"].max()]
-total_countries_infected = covid_df["country"].nunique() - 1
+total_countries_infected = covid_df["iso3"].nunique()
 # Find the total number per date
 confirmed_byDate = covid_df.groupby("date").sum()["confirmed"]
 # The last value is the total world
