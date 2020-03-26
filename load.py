@@ -10,7 +10,7 @@ countries_html = requests.get(countries_url).text
 countries_df = pd.read_html(countries_html)[0]
 
 # Covid-19 Confirmed Cases
-confirmed_url = "https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv"
+confirmed_url = "https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv"
 confirmed_html = requests.get(confirmed_url).text 
 confirmed_df = pd.read_html(confirmed_html)[0]
 confirmed_df = confirmed_df.iloc[:, 1:]
@@ -18,7 +18,7 @@ confirmed_df = confirmed_df.melt(id_vars=['Country/Region', 'Province/State', 'L
 confirmed_df = confirmed_df.rename(columns={"Country/Region": "country_region", "Province/State": "province_state", "variable":"date", "value": "confirmed"})
 
 # Covid-19 Deaths
-deaths_url = "https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Deaths.csv"
+deaths_url = "https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv"
 deaths_html = requests.get(deaths_url).text 
 deaths_df = pd.read_html(deaths_html)[0]
 deaths_df = deaths_df.iloc[:, 1:]
@@ -26,7 +26,7 @@ deaths_df = deaths_df.melt(id_vars=['Country/Region', 'Province/State', 'Lat', '
 deaths_df = deaths_df.rename(columns={"Country/Region": "country_region", "Province/State": "province_state", "variable":"date", "value": "deaths"})
 
 # Covid-19 Recovered
-recovered_url = "https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Recovered.csv"
+recovered_url = "https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv"
 recovered_html = requests.get(recovered_url).text 
 recovered_df = pd.read_html(recovered_html)[0]
 recovered_df = recovered_df.iloc[:, 1:]
@@ -34,14 +34,14 @@ recovered_df = recovered_df.melt(id_vars=['Country/Region', 'Province/State', 'L
 recovered_df = recovered_df.rename(columns={"Country/Region": "country_region", "Province/State": "province_state", "variable":"date", "value": "recovered"})
 
 # Merge three dataframes
-merged_df = pd.merge(confirmed_df, deaths_df)
-covid_df = pd.merge(merged_df, recovered_df)
+merged_df = pd.merge(confirmed_df, deaths_df, how="outer")
+covid_df = pd.merge(merged_df, recovered_df, how="outer")
 
 # Transform "Date" column into datatime format
 covid_df["date"] = pd.to_datetime(covid_df["date"])
 
 ### Add column ISO3 to "covid_df" ###
-covid_df1 = covid_df.loc[covid_df["country_region"] != "Cruise Ship"]
+covid_df1 = covid_df.loc[covid_df["country_region"] != "Diamond Princess"]
 cc = coco.CountryConverter()
 covid_df1 = covid_df1.replace(to_replace="UK", value="United Kingdom")
 country_list = list(covid_df1["country_region"])
@@ -81,7 +81,7 @@ summary = pd.DataFrame(
 HOSTNAME = "127.0.0.1"
 PORT = 3306
 USERNAME = "root"
-PASSWORD = "root"
+PASSWORD = "kangsong87"
 DIALECT = "mysql"
 DRIVER = "pymysql"
 DATABASE = "Covid"
