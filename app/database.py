@@ -3,7 +3,8 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import pymysql
 import sys
-sys.path.append('../')
+import os
+sys.path.append(os.path.join('..'))
 from mySQLCredentials import *
 
 USER = mySQLUsername
