@@ -80,6 +80,14 @@ body {
     background-position: center top;
 	background-size:cover;
 }
+.homesmall {
+    width: 100%;
+    height: 20vh;
+    background-image: url(https://www.who.int/images/default-source/health-topics/coronavirus/corona-virus-getty.tmb-1200v.jpg);
+    background-position: center top;
+    background-size: cover;
+
+}
 .bodyDiv {
     color: rgb(119, 88, 2);
     background-color: rgb(250, 239, 178)
