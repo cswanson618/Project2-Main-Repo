@@ -3,6 +3,7 @@ import pandas as pd
 import requests 
 from sqlalchemy import create_engine
 import country_converter as coco
+from mySQLCredentials import *
 
 # Get countries names and ISO3 
 countries_url = "https://github.com/lukes/ISO-3166-Countries-with-Regional-Codes/blob/master/all/all.csv"
@@ -55,8 +56,8 @@ covid_df = pd.merge(covid_df, covid_df1, how="outer")
 # Connect to the "Covid" database in MySQL (CHANGE PASSWORD)
 HOSTNAME = "127.0.0.1"
 PORT = 3306
-USERNAME = "root"
-PASSWORD = "Amd230313"
+USERNAME = mySQLUsername
+PASSWORD = mySQLPassword
 DIALECT = "mysql"
 DRIVER = "pymysql"
 DATABASE = "Covid"
