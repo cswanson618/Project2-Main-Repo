@@ -16,7 +16,7 @@ class DictMixIn:
         }
 
 
-class Record(Base, DictMixIn):
+class Cases(Base, DictMixIn):
     __tablename__ = "daily_cases"
 
     index = Column(Integer, primary_key=True)
@@ -39,3 +39,4 @@ class WorldTotalRecords(Base, DictMixIn):
     total_confirmed = Column(Integer)
     total_deaths = Column(Integer)
     total_recovered = Column(Integer)
+
