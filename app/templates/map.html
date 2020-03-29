@@ -1,6 +1,44 @@
-{% extends "layout.html" %}
-{% block content %}
-<script src="https://d3js.org/d3.v5.min.js"></script>
-<script src="https://unpkg.com/topojson-client@3"></script>
+<!-- {% extends "layout.html" %}
+{% block content %} -->
 
-{% endblock %}
+<!DOCTYPE HTML>
+<HTML lang="en">
+    <head>
+        <meta charset= "UTF-8">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel = "stylesheet" type="text/css" href = "{{ url_for('static', filename='styles/style.css') }}">
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <script src="https://unpkg.com/topojson-client@3"></script>
+        <script src="https://unpkg.com/d3-simple-slider"></script>
+        
+    </head>
+    <body class="bodyDiv">
+
+    
+    <select name="regions" id="region-select", onchange="getCountry(this.value)">
+        <option value="">--Please choose a region--</option>
+        <option value="World">World</option>
+        <option value="USA">USA</option>
+        <option value="CHN">China</option>
+        <option value="GBR">United Kingdom</option>
+        <option value="FRA">France</option>
+        <option value="CAN">Canada</option>
+        <option value="AUS">Australia</option>
+        <option value="NLD">Netherlands</option>
+        <option value="DNK">Denmark</option>
+    </select>
+
+    <div>
+        <div><p id="value-time"></p></div>
+        <div><div id="slider-time"></div></div>
+        <div id="map-container"></div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/map.js') }}"></script>
+    </body>
+</HTML>
+
+
+
+
+<!-- {% endblock %} -->

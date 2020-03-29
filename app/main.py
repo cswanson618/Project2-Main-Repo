@@ -47,6 +47,9 @@ def total_world():
     totals = app.session.query(models.WorldTotalRecords).all()
     return jsonify([record.to_dict() for record in totals])
 
+@app.route("/map")
+def map():
+    return render_template("map.html")
 
 @app.teardown_appcontext
 def remove_session(*args, **kwargs):

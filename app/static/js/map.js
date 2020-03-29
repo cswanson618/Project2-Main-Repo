@@ -1,52 +1,114 @@
-// World Map
-import {legend} from "@d3/color-legend"
-d3 = require("d3@5")
-width  = 1500;
-height = 750;
-projection = d3.geoEqualEarth()
-path = d3.geoPath(projection)
-outline = ({type: "Sphere"})
-countries = topojson.feature(world, world.objects.countries) // replace with our data
-world = FileAttachment("countries-50m.json").json() // replace with our data
-topojson = require("topojson-client@3") 
+function getCountry(route){
+	countryData = null;
+	d3.json(`/records/`).then( data => {
+		if (route !== "World") {
+			countryData = data.filter(record => record.iso3===route)
+		}else{
+			countryData=data
+		}
+		console.log(countryData)
+	}
+	)
+	
+	return countryData
+};
+getCountry("USA");
+
+// Date Slider
+d3.json(`/records/`).then( data => {
+	dataTime = data.map(e=>{
+		return new Date(e.date)
+	})
+	console.log(`dataTime: ${dataTime}`)
+	console.log(`min dataTime: ${d3.min(dataTime)}`)
+	console.log(`max dataTime: ${d3.max(dataTime)}`)
+
+	let sliderTime = d3
+	.sliderBottom()
+	.min(d3.min(dataTime)) 
+	.max(d3.max(dataTime)) 
+	.step(1000 * 60 * 60 * 24) // Daily Step
+	.width(300) //Adjust to appropriate size @Josh
+	.tickFormat(d3.timeFormat('%Y-%m-%d'))
+	.default(d3.max(dataTime))
+	.on('onchange', val => {
+		d3.select('p#value-time').text(d3.timeFormat('%Y-%m-%d')(val));
+	});
+
+	let gTime = d3
+		.select('div#slider-time')
+		.append('svg')
+		.attr('width', 500) //Adjust to appropriate size @Josh
+		.attr('height', 100) //Adjust to appropriate size @Josh
+		.append('g')
+		.attr('transform', 'translate(30,30)'); //Adjust to appropriate size @Josh
+	
+	gTime.call(sliderTime);
+
+	d3.select('p#value-time').text(d3.timeFormat('%Y.%m.%d')(sliderTime.value()));
+});
 
 
-let svg = d3.create("svg").style("display", "block").attr("viewBox", [0, 0, width, height]);
-  
-defs = svg.append("defs");
-defs.append("path")
-	.attr("id", "outline")
-	.attr("d", path(outline));
-  
-defs.append("clipPath")
-	.attr("id", "clip")
-  	.append("use")
-	.attr("xlink:href", new URL("#outline", location));
-  
-let g = svg.append("g")
-	.attr("clip-path", `url(${new URL("#clip", location)})`); 
 
-g.append("use")
-	.attr("xlink:href", new URL("#outline", location))
-	.attr("fill", "white");
+
+
+
+
+
+
+
+// // World Map
+// import {legend} from "@d3/color-legend";
+// d3 = require("d3@5");
+// width  = 1500;
+// height = 750;
+// projection = d3.geoEqualEarth();
+// path = d3.geoPath(projection);
+// outline = ({type: "Sphere"});
+// world = FileAttachment("countries-50m.json").json(); // replace with our data
+// countries = topojson.feature(world, world.objects.countries); // replace with our data
+// topojson = require("topojson-client@3");
+
+
+
+
+
+// let svg = d3.create("svg").style("display", "block").attr("viewBox", [0, 0, width, height]);
   
-g.append("g")
-	.selectAll("path")
-	.data(countries.features) // replace with our data
-	.join("path")
-	.attr("fill", d => color(data.get(d.properties.name))) // replace with our data
-	.attr("d", path)
-	.append("title")
-	.text(d => `${d.properties.name}${data.has(d.properties.name) ? data.get(d.properties.name) : "N/A"}`); // replace with our data
+// defs = svg.append("defs");
+// defs.append("path")
+// 	.attr("id", "outline")
+// 	.attr("d", path(outline));
   
-g.append("path")
-	.datum(topojson.mesh(world, world.objects.countries, (a, b) => a !== b)) // replace with our data
-	.attr("fill", "none")
-	.attr("stroke", "white")
-	.attr("stroke-linejoin", "round")
-	.attr("d", path);
+// defs.append("clipPath")
+// 	.attr("id", "clip")
+//   	.append("use")
+// 	.attr("xlink:href", new URL("#outline", location));
   
-svg.append("use")
-	.attr("xlink:href", new URL("#outline", location))
-	.attr("fill", "none")
-	.attr("stroke", "black");
+// let g = svg.append("g")
+// 	.attr("clip-path", `url(${new URL("#clip", location)})`); 
+
+// g.append("use")
+// 	.attr("xlink:href", new URL("#outline", location))
+// 	.attr("fill", "white");
+  
+// g.append("g")
+// 	.selectAll("path")
+// 	.data(countries.features) // replace with our data
+// 	.join("path")
+// 	.attr("fill", d => color(data.get(d.properties.name))) // replace with our data
+// 	.attr("d", path)
+// 	.append("title")
+// 	.text(d => `${d.properties.name}${data.has(d.properties.name) ? data.get(d.properties.name) : "N/A"}`); // replace with our data
+  
+// g.append("path")
+// 	.datum(topojson.mesh(world, world.objects.countries, (a, b) => a !== b)) // replace with our data
+// 	.attr("fill", "none")
+// 	.attr("stroke", "white")
+// 	.attr("stroke-linejoin", "round")
+// 	.attr("d", path);
+  
+// svg.append("use")
+// 	.attr("xlink:href", new URL("#outline", location))
+// 	.attr("fill", "none")
+// 	.attr("stroke", "black");
