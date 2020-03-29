@@ -9,14 +9,14 @@
     <nav class="nav">
         <div class="container">
             <div class="logo">
-                <a href="#">Home</a>
+                <a href="{{ url_for('home') }}">Home</a>
             </div>
             <div id="mainListDiv" class="main_list">
                 <ul class="navlinks">
                     <li><a href="#">About</a></li>
                     <li><a href="#">Data 2</a></li>
                     <li><a href="#">Placeholder</a></li>
-                    <li><a href="#">Placeholder</a></li>
+                    <li><a href="{{ url_for('routes') }}">All Routes</a></li>
                 </ul>
             </div>
             <span class="navTrigger">
@@ -34,7 +34,7 @@
         <div class="container-fluid text-center text-md-left">
     
         <!-- Grid row -->
-        <div class="row">
+        <div class="row footerRow">
     
             <!-- Grid column -->
             <div class="col-md-6 mt-md-0 mt-3">
