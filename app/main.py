@@ -7,6 +7,7 @@ from sqlalchemy import func, MetaData, desc, Column, Integer, String, DateTime, 
 
 from . import models
 from .database import SessionLocal, engine
+from .plot import bar_div, bubble_div
 
 import json
 
@@ -70,6 +71,10 @@ def total_world():
 def map():
     return render_template("map.html")
 
+@app.route("/plot")
+def render_plots():
+    return render_template("plot.html", bar=bar_div, bubble=bubble_div)
+ 
 @app.teardown_appcontext
 def remove_session(*args, **kwargs):
     app.session.remove()

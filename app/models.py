@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, Float
 from sqlalchemy.types import Date
 from .database import Base
 import datetime
@@ -40,3 +40,15 @@ class WorldTotalRecords(Base, DictMixIn):
     total_deaths = Column(Integer)
     total_recovered = Column(Integer)
 
+class Cases(Base, DictMixIn):
+    __tablename__ = "plotting"
+
+    index = Column(Integer, primary_key=True)
+    country_region = Column(String)
+    date = Column(Date)
+    confirmed = Column(Integer)
+    deaths = Column(Integer)
+    recovered = Column(Integer)
+    case_fatailty = Column(Float)
+    iso3 = Column(String)
+    older_pop = Column(Float)

@@ -3,6 +3,8 @@ import pandas as pd
 import requests 
 from sqlalchemy import create_engine
 import country_converter as coco
+import datetime
+
 from mySQLCredentials import *
 
 # Get countries names and ISO3 
@@ -41,8 +43,11 @@ covid_df = pd.merge(merged_df, recovered_df, how="outer")
 # Transform "Date" column into datatime format
 covid_df["date"] = pd.to_datetime(covid_df["date"])
 
-### Add column ISO3 to "covid_df" ###
-covid_df1 = covid_df.loc[covid_df["country_region"] != "Diamond Princess"]
+### Add column ISO3 to "covid_df"
+# To avoid getting warnings..
+not_country = ["Diamond Princess", "MS Zaandam"]
+covid_df1 = covid_df.loc[~covid_df["country_region"].isin(not_country)]
+
 cc = coco.CountryConverter()
 covid_df1 = covid_df1.replace(to_replace="UK", value="United Kingdom")
 country_list = list(covid_df1["country_region"])
@@ -50,8 +55,17 @@ standard_names = cc.convert(names=country_list, to="name_short")
 covid_df1["iso3"] = cc.convert(names=standard_names, to="iso3")
 covid_df = pd.merge(covid_df, covid_df1, how="outer")
 
-# Aggregate by county
-# confirmed_by_country_df = covid_df.groupby(["date", "country"])["confirmed"].sum().to_frame().reset_index()
+# Create a customized dataframe for Sinah's plots
+old_pop_df = pd.read_csv("older_pop_2018.csv")
+covid_df2 = covid_df[["country_region", "date", "province_state", "confirmed", "deaths", "recovered"]]
+covid_df2 = covid_df2.groupby(["country_region", "date"]).sum().reset_index()
+covid_df2["case_fatality"] = round(covid_df2["deaths"] / covid_df2["confirmed"] * 100, 2)
+covid_df3 = covid_df[["country_region", "iso3"]]
+covid_df4 = pd.merge(covid_df2, covid_df3, how="left")
+plot_df = pd.merge(covid_df4, old_pop_df, left_on="country_region", right_on="country", how="left")
+plot_df = plot_df.drop_duplicates()
+plot_df["date"] = plot_df["date"].dt.date
+plot_df = plot_df.loc[plot_df["date"] >= datetime.date(2020,3,1)].reset_index().drop("index", axis=1)
 
 # Connect to the "Covid" database in MySQL (CHANGE PASSWORD)
 HOSTNAME = "127.0.0.1"
@@ -68,6 +82,7 @@ engine = create_engine(connection_string)
 
 # Create "daily_cases" table in "Covid" database with "covid_db" dataframe
 covid_df.to_sql(con=engine, name="daily_cases", if_exists="replace")
+plot_df.to_sql(con=engine, name="plotting", if_exists="replace")
 countries_df.to_sql(con=engine, name="countries", if_exists="replace")
 
 # CREATE [OR REPLACE] [TEMPORARY] TABLE [IF NOT EXISTS] tbl_name
