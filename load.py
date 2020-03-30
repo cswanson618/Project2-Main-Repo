@@ -62,7 +62,7 @@ covid_df2 = covid_df2.groupby(["country_region", "date"]).sum().reset_index()
 covid_df2["case_fatality"] = round(covid_df2["deaths"] / covid_df2["confirmed"] * 100, 2)
 covid_df3 = covid_df[["country_region", "iso3"]]
 covid_df4 = pd.merge(covid_df2, covid_df3, how="left")
-plot_df = pd.merge(covid_df4, old_pop_df, left_on="country_region", right_on="country", how="left")
+plot_df = pd.merge(covid_df4, old_pop_df, how="left")
 plot_df = plot_df.drop_duplicates()
 plot_df["date"] = plot_df["date"].dt.date
 plot_df = plot_df.loc[plot_df["date"] >= datetime.date(2020,3,1)].reset_index().drop("index", axis=1)

@@ -16,7 +16,7 @@ df = pd.read_sql(
 
 ### Bar Graphs ###
 max_date = max(df["date"])
-bar_df = df.loc[df["date"] == max_date] 
+bar_df = df.loc[df["date"] == max_date].copy()
 
 top20_countries = bar_df.sort_values("confirmed", ascending=False)[:20]
 confirmed_df = top20_countries.sort_values("confirmed", ascending=True)
@@ -84,7 +84,7 @@ bar_fig.update_traces(textposition='outside', textfont_size=12)
 
 bar_fig.update_layout(
     title={
-        'text': f'<b>[{max_date}]</b> COVID-19 Confirmed Cases',
+        'text': f'<b>[{max_date}]</b> Top 20 Countries by COVID-19 Confirmed Cases',
         'y':0.95,
         'x':0.5,
         'xanchor': 'center',
@@ -112,7 +112,7 @@ bar_fig.update_layout(
                         method="update",
                         args=[
                             {"visible": [True, False, False, False]},
-                            {"title": f'<b>[{max_date}]</b> COVID-19 Confirmed Cases'},
+                            {"title": f'<b>[{max_date}]</b> Top 20 Countries by COVID-19 Confirmed Cases'},
                         ],
                     ),
                     dict(
@@ -120,7 +120,7 @@ bar_fig.update_layout(
                         method="update",
                         args=[
                             {"visible": [False, True, False, False]},
-                            {"title": f'<b>[{max_date}]</b> COVID-19 Deaths'},
+                            {"title": f'<b>[{max_date}]</b> Top 20 Countries by COVID-19 Deaths'},
                         ],
                     ),
                     dict(
@@ -128,7 +128,7 @@ bar_fig.update_layout(
                         method="update",
                         args=[
                             {"visible": [False, False, True, False]},
-                            {"title": f'<b>[{max_date}]</b> COVID-19 Recovered Cases'},
+                            {"title": f'<b>[{max_date}]</b> Top 20 Countries by COVID-19 Recovered Cases'},
                         ],
                     ),
                     dict(
@@ -136,7 +136,7 @@ bar_fig.update_layout(
                         method="update",
                         args=[
                             {"visible": [False, False, False, True]},
-                            {"title": f'<b>[{max_date}]</b> COVID-19 Case Fatality Rate(%)'},
+                            {"title": f'<b>[{max_date}]</b> Top 20 Countries by COVID-19 Case Fatality Rate(%)'},
                         ],
                     ),
                 ]
@@ -151,14 +151,12 @@ bar_fig.update_layout(
 # Select top 20 countries with the highest number of confirmed cases as of max(date)
 top20_df = df.loc[df["date"] == max(df["date"])].sort_values("confirmed", ascending=False)[:20]
 top20_countries = list(top20_df["country_region"])
-bubble_df = df.loc[df["country_region"].isin(top20_countries)]
+bubble_df = df.loc[df["country_region"].isin(top20_countries)].copy()
 bubble_df["older_pop"] = round(bubble_df["older_pop"], 1)
 bubble_df["date"] = bubble_df["date"].apply(lambda x: x.strftime('%Y-%m-%d'))
 bubble_df = bubble_df.rename(columns = {"country_region":"Country", "date":"Date", "confirmed":"Confirmed", "case_fatality":"Case Fatality", "older_pop":"Older Population"})
 
 # Animated bubble chart
-
-
 bubble_fig = px.scatter(
     bubble_df, 
     x="Older Population", 
@@ -183,7 +181,7 @@ bubble_fig.update_yaxes(ticksuffix="%")
 
 bubble_fig.update_layout(
     title={
-        "text":"<b>Age 65+ Population <i>vs</i> COVID-19 Case Fatality Rate</b><br>(Bubble Size: # Confirmed Cases)",
+        "text":"<b>Age 65+ Population <i>vs</i> COVID-19 Case Fatality Rate</b><br>(Data: Top 20 Countries by Confirmed Cases, Bubble Size: Number of Confirmed Cases)",
         'y':0.97,
         'x':0.5,
         'xanchor': 'center',
