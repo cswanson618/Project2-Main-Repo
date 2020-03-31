@@ -45,6 +45,121 @@ def worldwidetotals():
     dicts = json.dumps(dict)
     return dicts
 
+#API Route 2: Most Recent Confirmed Cases Worldwide
+
+@app.route("/API/cases")
+def worldwidecases():
+    subquery2 = app.session.query(func.max(models.Cases.date)).subquery()
+    worldwidecases = app.session.query(models.Cases.country_region, models.Cases.date, func.sum(models.Cases.confirmed), func.sum(models.Cases.deaths), func.sum(models.Cases.recovered)).filter(models.Cases.date.in_(subquery2)).group_by(models.Cases.iso3).all()
+    dict2 = []
+    for item in worldwidecases:
+        dict2.append({
+            "country": item[0],
+            "Cases": item[2],
+            "Last Update": str(item[1])
+        })
+    dicts2 = json.dumps(dict2)
+    return dicts2
+
+#API Route 3: Most Recent Deaths Worldwide
+
+@app.route("/API/dead")
+def worldwidedead():
+    subquery3 = app.session.query(func.max(models.Cases.date)).subquery()
+    worldwidedead = app.session.query(models.Cases.country_region, models.Cases.date, func.sum(models.Cases.confirmed), func.sum(models.Cases.deaths), func.sum(models.Cases.recovered)).filter(models.Cases.date.in_(subquery3)).group_by(models.Cases.iso3).all()
+    dict3 = []
+    for item in worldwidedead:
+        dict3.append({
+            "country": item[0],
+            "Deaths": item[3],
+            "Last Update": str(item[1])
+
+        })
+    dicts3 = json.dumps(dict3)
+    return dicts3
+
+#API Route 4: Most Recent Number of Recoveries Worldwide
+
+@app.route("/API/recovered")
+def worldwiderecovered():
+    subquery4 = app.session.query(func.max(models.Cases.date)).subquery()
+    worldwiderecovered = app.session.query(models.Cases.country_region, models.Cases.date, func.sum(models.Cases.confirmed), func.sum(models.Cases.deaths), func.sum(models.Cases.recovered)).filter(models.Cases.date.in_(subquery4)).group_by(models.Cases.iso3).all()
+    dict4 = []
+    for item in worldwiderecovered:
+        dict4.append({
+            "country": item[0],
+            "Recovered": item[4],
+            "Last Update": str(item[1])
+        })
+    dicts4 = json.dumps(dict4)
+    return dicts4
+
+#API Route 5: Most Recent Totals by Country
+
+@app.route("/API/<iso3>")
+def countrytotals(iso3):
+    subquery5 = app.session.query(func.max(models.Cases.date)).subquery()
+    countrytotals = app.session.query(models.Cases.country_region, models.Cases.date, func.sum(models.Cases.confirmed), func.sum(models.Cases.deaths), func.sum(models.Cases.recovered)).filter(iso3 == models.Cases.iso3).filter(models.Cases.date.in_(subquery5)).group_by(models.Cases.iso3).all()
+    dict5 = []
+    for item in countrytotals:
+        dict5.append({
+            "country": item[0],
+            "Last Update": str(item[1]),
+            "Cases": item[2],
+            "Deaths": item[3],
+            "Recovered": item[4]
+        })
+    dicts5 = json.dumps(dict5)
+    return dicts5
+
+#API Route 6: Most Recent Cases by Country
+
+@app.route("/API/cases/<iso3>")
+def countrycases(iso3):
+    subquery6 = app.session.query(func.max(models.Cases.date)).subquery()
+    countrycases = app.session.query(models.Cases.country_region, models.Cases.date, func.sum(models.Cases.confirmed), func.sum(models.Cases.deaths), func.sum(models.Cases.recovered)).filter(iso3 == models.Cases.iso3).filter(models.Cases.date.in_(subquery6)).group_by(models.Cases.iso3).all()
+    dict6 = []
+    for item in countrycases:
+        dict6.append({
+            "country": item[0],
+            "Cases": item[2],
+            "Last Updated": str(item[1])
+        })
+    dicts6 = json.dumps(dict6)
+    return dicts6
+
+#API Route 7: Most Recent Dead by Country
+
+@app.route("/API/dead/<iso3>")
+def countrydead(iso3):
+    subquery7 = app.session.query(func.max(models.Cases.date)).subquery()
+    countrydead = app.session.query(models.Cases.country_region, models.Cases.date, func.sum(models.Cases.confirmed), func.sum(models.Cases.deaths), func.sum(models.Cases.recovered)).filter(iso3 == models.Cases.iso3).filter(models.Cases.date.in_(subquery7)).group_by(models.Cases.iso3).all()
+    dict7 = []
+    for item in countrydead:
+        dict7.append({
+            "country": item[0],
+            "Deaths": item[3],
+            "Last Update": str(item[1])
+        })
+    dicts7 = json.dumps(dict7)
+    return dicts7
+
+#API Route 8: Most Recent Recovered by Country
+
+@app.route("/API/recovered/<iso3>")
+def countryrecovered(iso3):
+    subquery8 = app.session.query(func.max(models.Cases.date)).subquery()
+    countryrecovered = app.session.query(models.Cases.country_region, models.Cases.date, func.sum(models.Cases.confirmed), func.sum(models.Cases.deaths), func.sum(models.Cases.recovered)).filter(iso3 == models.Cases.iso3).filter(models.Cases.date.in_(subquery8)).group_by(models.Cases.iso3).all()
+    dict8 = []
+    for item in countryrecovered:
+        dict8.append({
+            "country": item[0],
+            "Recovered": item[4],
+            "Last Update": str(item[1]),
+        })
+    dicts8 = json.dumps(dict8)
+    return dicts8
+
 #All records (from Daniela)
 @app.route("/records/")
 def show_records():
