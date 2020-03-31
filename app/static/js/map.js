@@ -28,7 +28,7 @@ d3.json(`/records/`).then( data => {
 	.min(d3.min(dataTime)) 
 	.max(d3.max(dataTime)) 
 	.step(1000 * 60 * 60 * 24) // Daily Step
-	.width(300) //Adjust to appropriate size @Josh
+	.width(600) //Adjust to appropriate size @Josh
 	.tickFormat(d3.timeFormat('%Y-%m-%d'))
 	.default(d3.max(dataTime))
 	.on('onchange', val => {
@@ -38,7 +38,7 @@ d3.json(`/records/`).then( data => {
 	let gTime = d3
 		.select('div#slider-time')
 		.append('svg')
-		.attr('width', 500) //Adjust to appropriate size @Josh
+		.attr('width', 700) //Adjust to appropriate size @Josh
 		.attr('height', 100) //Adjust to appropriate size @Josh
 		.append('g')
 		.attr('transform', 'translate(30,30)'); //Adjust to appropriate size @Josh
