@@ -92,9 +92,10 @@ bar_fig.update_layout(
     xaxis_domain=[0.05, 1.0],
     xaxis= {'showgrid': True},
     font=dict(
-        family="Courier New, monospace",
+        family='-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji',
         size=16),
-    showlegend=False
+    showlegend=False,
+    height=900
 )
 
 # Add buttons
@@ -169,6 +170,7 @@ bubble_fig = px.scatter(
     range_x=[5,25], 
     range_y=[0,13],
     text="Country",
+    
 )
 
 bubble_fig.update_traces(
@@ -189,6 +191,7 @@ bubble_fig.update_layout(
     xaxis_title="Age 65 and Above (% of Total Population)",
     yaxis_title="Case Fatality Rate (%)",
     showlegend=False,
+    height=900
 )
 
 # Save as html
