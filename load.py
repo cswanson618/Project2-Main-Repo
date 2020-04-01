@@ -42,6 +42,7 @@ covid_df = pd.merge(merged_df, recovered_df, how="outer")
 
 # Transform "Date" column into datatime format
 covid_df["date"] = pd.to_datetime(covid_df["date"])
+covid_df["date"] = covid_df["date"].dt.date
 
 ### Add column ISO3 to "covid_df"
 # To avoid getting warnings..
@@ -64,7 +65,6 @@ covid_df3 = covid_df[["country_region", "iso3"]]
 covid_df4 = pd.merge(covid_df2, covid_df3, how="left")
 plot_df = pd.merge(covid_df4, old_pop_df, how="left")
 plot_df = plot_df.drop_duplicates()
-plot_df["date"] = plot_df["date"].dt.date
 plot_df = plot_df.loc[plot_df["date"] >= datetime.date(2020,3,1)].reset_index().drop("index", axis=1)
 
 # Connect to the "Covid" database in MySQL (CHANGE PASSWORD)
