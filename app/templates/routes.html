@@ -3,22 +3,17 @@
 <section class="home">
 </section>
 <div class='bodyDiv' style="container-fluid">
-    <h2 class="myH2">Here is a list of all routes we have</h2>
-    <div class="col-md-6 mb-mb-0 mb-3">
-    <p>
-            <ul class="list-group">
-                <li class="list-group-item h3 text-center">
-                    <a href="{{ url_for('show_records') }}">Show Records</a>
-                </li>
-                <li class="list-group-item h3 text-center">
-                    <a href="{{ url_for('total_world') }}">Total World</a>
-                </li>
-                <li class="list-group-item h3 text-center">
-                    <a href="{{ url_for('country_by_ISO3', iso3= 'USA') }}">USA Records</a>
-                </li>
-            </ul>
-        </p>
-    </div>
+    <h2 class="myH2">Current Covid-19 Data API</h2>
+    <p class="myP">
+        Access Covid-19 updated within the last 24 hours. This data is updated from several sources and aggregated here. 
+    </p>
+    <h3 class='myH3'>Call Current Global Covid-19 Data</h3>
+    <p class="myP">
+        DESCRIPTION
+        This will querry the most recent Covid-19 data.
+        URL/API/most_recent
+    </p>
+    
 </div>
 {% endblock %}
 

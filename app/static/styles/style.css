@@ -19,6 +19,7 @@ body {
     position: fixed;
     line-height: 65px;
     text-align: center;
+    z-index: 100000;
 }
 
 .nav div.logo {
@@ -102,6 +103,7 @@ body {
     padding-bottom: 20px;
     -webkit-transition: all 0.4s ease;
     transition: all 0.4s ease;
+    z-index: 9999;
 }
 
 .plotsDiv {
@@ -372,6 +374,17 @@ body {
 	padding-left:15%;
 	padding-right:15%;
 	font-size: 20px;
+}
+.cardH3 {
+    font-size: 20px;
+    color: #fff;
+}
+.cardP {
+    font-size: 15px;
+    color: #fff;
+}
+.card {
+    background-color: rgb(202, 175, 53);
 }
 .footerRow {
     padding-left:15%;

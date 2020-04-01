@@ -23,7 +23,7 @@ def home():
     deaths = json.loads(globaltimeseries())[-1].get("Deaths")
     cases = json.loads(globaltimeseries())[-1].get("Cases")
     recovered = json.loads(globaltimeseries())[-1].get("Recovered")
-    return render_template("index.html", bar=bar_div, deaths=deaths)
+    return render_template("index.html", bar=bar_div, deaths=deaths, cases=cases, recovered=recovered)
 
 @app.route("/routes")
 def routes():

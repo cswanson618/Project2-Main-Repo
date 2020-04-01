@@ -4,11 +4,32 @@
 </section>
 <div class='bodyDiv' style="container-fluid">
     <div class="row">
-        <div class="col-4 card text-white bg-primary mb-3" style="max-width: 100%; max-height: 100px;">
-            <div class="card-header">Deaths</div>
-            <div class="card-body">
-              <h4 class="card-title">Total World Deaths</h4>
-              <p class="card-text">{{ deaths }}</p>
+        <div class="col-4">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card float-right" style="width: 30rem">
+                        <div class="card-body">
+                            <h3 class="card-title cardH3">Total World Cases</h3>
+                            <p class="card-text cardP">{{ cases }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="card float-right" style="width: 30rem">
+                        <div class="card-body">
+                            <h3 class="card-title cardH3">Total World Deaths</h3>
+                            <p class="card-text cardP">{{ deaths }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="card float-right" style="width: 30rem">
+                        <div class="card-body">
+                            <h3 class="card-title cardH3">Total World Recovered</h3>
+                            <p class="card-text cardP">{{ recovered }}</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-8">
