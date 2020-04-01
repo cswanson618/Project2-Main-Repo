@@ -160,6 +160,119 @@ def countryrecovered(iso3):
     dicts8 = json.dumps(dict8)
     return dicts8
 
+# API Route 9: Country Timeseries
+
+@app.route("/API/<iso3>/timeseries/")
+def countrytimeseries(iso3):
+    countrytimeseries = app.session.query(models.Cases.country_region, models.Cases.date, func.sum(models.Cases.confirmed), func.sum(models.Cases.deaths), func.sum(models.Cases.recovered)).filter(iso3 == models.Cases.iso3).group_by(models.Cases.date).all()
+    dict9 = []
+    for item in countrytimeseries:
+        dict9.append({
+            "country": item[0],
+            "Total Results as of Date": str(item[1]),
+            "Cases": item[2],
+            "Deaths": item[3],
+            "Recovered": item[4]
+        })
+    dicts9 = json.dumps(dict9)
+    return dicts9
+
+#API Route 10: Global Timeseries
+
+@app.route("/API/timeseries/")
+def globaltimeseries():
+    globaltimeseries = app.session.query(models.Cases.country_region, models.Cases.date, func.sum(models.Cases.confirmed), func.sum(models.Cases.deaths), func.sum(models.Cases.recovered)).group_by(models.Cases.date).all()
+    dict10 = []
+    for item in globaltimeseries:
+        dict10.append({
+            "Total Results as of Date": str(item[1]),
+            "Cases": item[2],
+            "Deaths": item[3],
+            "Recovered": item[4]
+        })
+    dicts10 = json.dumps(dict10)
+    return dicts10
+
+#API Route 11: Global Timeseries for Cases
+
+@app.route("/API/cases/timeseries")
+def casestimeseries():
+    casestimeseries = app.session.query(models.Cases.country_region, models.Cases.date, func.sum(models.Cases.confirmed), func.sum(models.Cases.deaths), func.sum(models.Cases.recovered)).group_by(models.Cases.date).all()
+    dict11 = []
+    for item in casestimeseries:
+        dict11.append({
+            "Total Results as of Date": str(item[1]),
+            "Cases": item[2],
+        })
+    dicts11 = json.dumps(dict11)
+    return dicts11
+
+#API Route 12: Global Timeseries for Deaths
+@app.route("/API/dead/timeseries")
+def deadtimeseries():
+    deadtimeseries = app.session.query(models.Cases.country_region, models.Cases.date, func.sum(models.Cases.confirmed), func.sum(models.Cases.deaths), func.sum(models.Cases.recovered)).group_by(models.Cases.date).all()
+    dict12 = []
+    for item in deadtimeseries:
+        dict12.append({
+            "Total Results as of Date": str(item[1]),
+            "Deaths": item[3],
+        })
+    dicts12 = json.dumps(dict12)
+    return dicts12
+
+#API Route 13: Global Timeseries for Recoveries
+@app.route("/API/recovered/timeseries")
+def recoveredtimeseries():
+    recoveredtimeseries = app.session.query(models.Cases.country_region, models.Cases.date, func.sum(models.Cases.confirmed), func.sum(models.Cases.deaths), func.sum(models.Cases.recovered)).group_by(models.Cases.date).all()
+    dict13 = []
+    for item in recoveredtimeseries:
+        dict13.append({
+            "Total Results as of Date": str(item[1]),
+            "Recovered": item[4],
+        })
+    dicts13 = json.dumps(dict13)
+    return dicts13
+
+#API Route 14: Country Timeseries for Cases
+
+@app.route("/API/cases/<iso3>/timeseries")
+def countrycasestimeseries(iso3):
+    countrycasestimeseries = app.session.query(models.Cases.country_region, models.Cases.date, func.sum(models.Cases.confirmed), func.sum(models.Cases.deaths), func.sum(models.Cases.recovered)).filter(iso3 == models.Cases.iso3).group_by(models.Cases.date).all()
+    dict14 = []
+    for item in countrycasestimeseries:
+        dict14.append({
+            "Total Results as of Date": str(item[1]),
+            "Cases": item[2],
+        })
+    dicts14 = json.dumps(dict14)
+    return dicts14
+
+#API Route 15: Country Timeseries for Deaths
+@app.route("/API/dead/<iso3>/timeseries")
+def countrydeadtimeseries(iso3):
+    countrydeadtimeseries = app.session.query(models.Cases.country_region, models.Cases.date, func.sum(models.Cases.confirmed), func.sum(models.Cases.deaths), func.sum(models.Cases.recovered)).filter(iso3 == models.Cases.iso3).group_by(models.Cases.date).all()
+    dict15 = []
+    for item in countrydeadtimeseries:
+        dict15.append({
+            "Total Results as of Date": str(item[1]),
+            "Deaths": item[3],
+        })
+    dicts15 = json.dumps(dict15)
+    return dicts15
+
+#API Route 16: Country Timeseries for Recoveries
+@app.route("/API/recovered/<iso3>/timeseries")
+def countryrecoveredtimeseries(iso3):
+    countryrecoveredtimeseries = app.session.query(models.Cases.country_region, models.Cases.date, func.sum(models.Cases.confirmed), func.sum(models.Cases.deaths), func.sum(models.Cases.recovered)).group_by(models.Cases.date).all()
+    dict16 = []
+    for item in countryrecoveredtimeseries:
+        dict16.append({
+            "Total Results as of Date": str(item[1]),
+            "Recovered": item[4],
+        })
+    dicts16 = json.dumps(dict16)
+    return dicts16
+
 #All records (from Daniela)
 @app.route("/records/")
 def show_records():
