@@ -1,20 +1,18 @@
-<html>
-    <head>
-    </head>
-    <body>
-        <div>
-            <h2>COVID-19 Live Updates</h2>
-            <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+{% extends "layout.html" %}
+{% block content %}
+<section class="home"></section>
+<div class='bodyDiv' style='container-fluid'>
+    <h2 class='myH2'>COVID-19 Live Updates</h2>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <div class='plotsDiv' alt="Max-width 100%">
+        <div class="col-11" style="height: 900px; Max-width: 100%">
             {{ bar | safe }} 
-            {{ bubble | safe }} 
+            
         </div>
-        <!-- <form action="/" method="post">
-            <select name="bargraph">
-                <option value="confirmed" selected>Confirmed Cases</option>
-                <option value="deaths">Deaths</option>
-                <option value="recovered">Recovered Cases</option>
-            </select>
-            <input type="submit" value="Select">
-        </form> -->
-    </body>
-</html>
+        <div class="col-12" style="height: 900px; Max-width: 100%">
+            {{ bubble | safe }}
+        </div>
+    
+    </div>
+</div>
+{% endblock %}

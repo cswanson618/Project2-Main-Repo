@@ -104,6 +104,11 @@ body {
     transition: all 0.4s ease;
 }
 
+.plotsDiv {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
 
 /* Media qurey section */
 
