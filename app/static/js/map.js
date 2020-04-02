@@ -14,7 +14,7 @@ function getCountry(route){
 };
 getCountry("USA");
 
-// Date Slider
+
 d3.json(`/records/`).then( data => {
 	dataTime = data.map(e=>{
 		return new Date(e.date)
@@ -46,35 +46,77 @@ d3.json(`/records/`).then( data => {
 	gTime.call(sliderTime);
 
 	d3.select('p#value-time').text(d3.timeFormat('%Y.%m.%d')(sliderTime.value()));
+	
+	function buildMap(mapData) {
+  
+	  let plotData = [{
+		  type: 'choropleth',
+		  locations: mapData.map(c => c.iso3),
+		  z: mapData.map(c => c.confirmed),
+		  text: mapData.map(c => {c.confirmed, c.deaths, c.recovered}),
+		  autocolorscale: true
+	  }];
+  
+	  var layout = {
+		title: 'COVID-19',
+		geo: {
+			projection: {
+				type: 'robinson'
+			}
+		}
+	  };
+  
+	  Plotly.newPlot("map-container", plotData, layout, {showLink: false});
+		
+	}
+
+
+	const handleDateChange = () => {
+		d3.event.preventDefault();
+	
+		let lookupDate = d3.select('p#value-time').property("value");
+		console.log(lookupDate)
+		let filteredData = data.filter(
+			dataRow => dataRow.date === lookupDate
+		);
+		
+		buildMap(filteredData);
+		
+	};
+
+	d3.select('p#value-time').on("change", handleDateChange)
 });
 
 
-Plotly.d3.csv('https://raw.githubusercontent.com/plotly/datasets/master/2010_alcohol_consumption_by_country.csv', function(err, rows){
-      function unpack(rows, key) {
-          return rows.map(function(row) { return row[key]; });
-      }
 
-    var data = [{
-        type: 'choropleth',
-        locationmode: 'ISO-3',
-        locations: unpack(rows, 'location'),
-        z: unpack(rows, 'alcohol'),
-        text: unpack(rows, 'location'),
-        autocolorscale: true
-    }];
 
-    var layout = {
-      title: 'Pure alcohol consumption<br>among adults (age 15+) in 2010',
-      geo: {
-          projection: {
-              type: 'robinson'
-          }
-      }
-    };
 
-    Plotly.newPlot("map-container", data, layout, {showLink: false});
 
-});
+// Plotly.d3.csv('https://raw.githubusercontent.com/plotly/datasets/master/2010_alcohol_consumption_by_country.csv', function(err, rows){
+//       function unpack(rows, key) {
+//           return rows.map(function(row) { return row[key]; });
+//       }
+
+//     let data = [{
+//         type: 'choropleth',
+//         locations: unpack(rows, 'location'),
+//         z: unpack(rows, 'alcohol'),
+//         text: unpack(rows, 'location'),
+//         autocolorscale: true
+//     }];
+
+//     var layout = {
+//       title: 'Pure alcohol consumption<br>among adults (age 15+) in 2010',
+//       geo: {
+//           projection: {
+//               type: 'robinson'
+//           }
+//       }
+//     };
+
+//     Plotly.newPlot("map-container", data, layout, {showLink: false});
+
+// });
 
 
 
