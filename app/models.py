@@ -1,7 +1,8 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, Float
 from sqlalchemy.types import Date
 from .database import Base
 import datetime
+from datetime import datetime
 
 
 class DictMixIn:
@@ -16,7 +17,7 @@ class DictMixIn:
         }
 
 
-class Record(Base, DictMixIn):
+class Cases(Base, DictMixIn):
     __tablename__ = "daily_cases"
 
     index = Column(Integer, primary_key=True)
@@ -39,3 +40,16 @@ class WorldTotalRecords(Base, DictMixIn):
     total_confirmed = Column(Integer)
     total_deaths = Column(Integer)
     total_recovered = Column(Integer)
+
+class Plot(Base, DictMixIn):
+    __tablename__ = "plotting"
+
+    index = Column(Integer, primary_key=True)
+    country_region = Column(String)
+    date = Column(Date)
+    confirmed = Column(Integer)
+    deaths = Column(Integer)
+    recovered = Column(Integer)
+    case_fatailty = Column(Float)
+    iso3 = Column(String)
+    older_pop = Column(Float)

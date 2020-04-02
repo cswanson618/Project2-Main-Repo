@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block content %}
+<section class="home"></section>
+<div class='bodyDiv' style='container-fluid'>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <div class='plotsDiv' alt="Max-width 100%">
+        <div class="col-12" style="height: 900px; Max-width: 100%">
+            {{ bubble | safe }}
+        </div>
+    </div>
+    <ul class="myUL">
+        <li class="myList">Data: Top 20 countries by COVID-19 confirmed cases</li>
+        <li class="myList">X-Axis: % of population age 65 and above (source: World Bank 2018)</li>
+        <li class="myList">Y-Axis: COVID-19 case fatality rate (#deaths/#confirmed)</li>
+        <li class="myList">Bubble size proportional to # of COVID-19 confirmed cases</li>
+        <li class="myList">Bubble color coded by country</li>
+        <li class="myList">Transition day by day from 2020-03-01 to the latest available data</li>
+    </ul>
+</div>
+{% endblock %}

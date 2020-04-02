@@ -7,13 +7,19 @@ import os
 sys.path.append(os.path.join('..'))
 from mySQLCredentials import *
 
-USER = mySQLUsername
+HOSTNAME = "127.0.0.1"
+PORT = 3306
+USERNAME = mySQLUsername
 PASSWORD = mySQLPassword
-HOST = "127.0.0.1"
-PORT = "3306"
-DATABASE = "covid"
+DIALECT = "mysql"
+DRIVER = "pymysql"
+DATABASE = "Covid"
 
-engine = create_engine(f"mysql+pymysql://{USER}:{PASSWORD}@{HOST}:{PORT}", echo=False)
+connection_string = (
+    f"{DIALECT}+{DRIVER}://{USERNAME}:{PASSWORD}@{HOSTNAME}:{PORT}/{DATABASE}"
+)
+
+engine = create_engine(connection_string, echo=False)
 
 engine.execute(f"USE {DATABASE}")
 
