@@ -375,6 +375,13 @@ body {
 	padding-right:15%;
 	font-size: 20px;
 }
+.myUL {
+    padding-left:30%;
+    padding-right:30%;
+}
+.myList {
+    font-size: 20px;
+}
 .cardH3 {
     font-size: 20px;
     color: #fff;
