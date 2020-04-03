@@ -6,6 +6,7 @@ import datetime
 
 from mySQLCredentials import *
 
+### World Data
 # Covid-19 Confirmed Cases
 confirmed_url = "https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv"
 confirmed_html = requests.get(confirmed_url).text 
@@ -39,14 +40,13 @@ covid_merge2["date"] = pd.to_datetime(covid_merge2["date"])
 covid_merge2["date"] = covid_merge2["date"].dt.date
 
 ### Add column ISO3 to "covid_df"
-# iso_url = "https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/UID_ISO_FIPS_LookUp_Table.csv"
-# iso_html = requests.get(iso_url).text
-# iso_df = pd.read_html(iso_html)[0]
-# iso3_df = iso_df[["iso3", "Country_Region"]].rename(columns={"Country_Region": "country_region"})[:173]
-# new_rows_df = pd.DataFrame({"iso3": ["AUS", "CAN", "CHN", "USA"], "country_region": ["Australia", "Canada", "China", "US"]})
-# iso3_df = iso3_df.append(new_rows_df, ignore_index=True)
-
-iso3_df = pd.read_csv("iso3.csv", index_col=0)
+iso_url = "https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/UID_ISO_FIPS_LookUp_Table.csv"
+iso_html = requests.get(iso_url).text
+iso_df = pd.read_html(iso_html)[0]
+iso3_df = iso_df[["iso3", "Country_Region", "Province_State"]].rename(columns={"Country_Region": "country_region", "Province_State": "province_state"})
+iso3_df = iso3_df.loc[iso3_df["province_state"].isnull()].drop("province_state", 1)
+# iso3_df.to_csv("iso3.csv")
+# iso3_df = pd.read_csv("iso3.csv", index_col=0)
 covid_df = pd.merge(covid_merge2, iso3_df, how="left")
 
 # Create a customized dataframe for Sinah's plots
@@ -57,6 +57,12 @@ covid_df2["case_fatality"] = round(covid_df2["deaths"] / covid_df2["confirmed"] 
 covid_df3 = pd.merge(covid_df2, iso3_df, how="left")
 plot_df = pd.merge(covid_df3, old_pop_df, how="left")
 plot_df = plot_df.loc[plot_df["date"] >= datetime.date(2020,3,1)].reset_index().drop("index", axis=1)
+
+### US Data
+# us_confirmed_url = "https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_US.csv"
+# us_confirmed_html = requests.get(us_confirmed_url).text 
+# us_confirmed_df = pd.read_html(us_confirmed_html)[0]
+# print(us_confirmed_df)
 
 # Connect to the "Covid" database in MySQL (CHANGE PASSWORD)
 HOSTNAME = "127.0.0.1"
