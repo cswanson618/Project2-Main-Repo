@@ -91,7 +91,7 @@ body {
 }
 .bodyDiv {
     color: rgb(119, 88, 2);
-    background-color: rgb(250, 239, 178)
+    background-color: rgb(247, 244, 224)
 }
 
 .navTrigger {
@@ -389,7 +389,7 @@ body {
     color: #fff;
 }
 .cardP {
-    font-size: 15px;
+    font-size: 40px;
     color: #fff;
 }
 .card {
