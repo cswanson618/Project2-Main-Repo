@@ -31,6 +31,8 @@ from .plot import bar_div, bubble_div
 
 import json
 
+import datetime
+
 models.Base.metadata.create_all(bind=engine)
 
 app = Flask(__name__)
@@ -64,6 +66,7 @@ def worldwidetotals():
             func.sum(models.Cases.confirmed),
             func.sum(models.Cases.deaths),
             func.sum(models.Cases.recovered),
+            models.Cases.iso3
         )
         .filter(models.Cases.date.in_(subquery1))
         .group_by(models.Cases.iso3)
@@ -73,6 +76,7 @@ def worldwidetotals():
     for item in worldwidetotals:
         dict.append(
             {
+                "ISO3": item[5],
                 "country": item[0],
                 "Date": str(item[1]),
                 "Cases": item[2],
@@ -97,6 +101,7 @@ def worldwidecases():
             func.sum(models.Cases.confirmed),
             func.sum(models.Cases.deaths),
             func.sum(models.Cases.recovered),
+            models.Cases.iso3
         )
         .filter(models.Cases.date.in_(subquery2))
         .group_by(models.Cases.iso3)
@@ -105,7 +110,7 @@ def worldwidecases():
     dict2 = []
     for item in worldwidecases:
         dict2.append(
-            {"country": item[0], "Cases": item[2], "Last Update": str(item[1])}
+            {"ISO3": item[5], "country": item[0], "Cases": item[2], "Last Update": str(item[1])}
         )
     dicts2 = json.dumps(dict2)
     return dicts2
@@ -124,6 +129,7 @@ def worldwidedead():
             func.sum(models.Cases.confirmed),
             func.sum(models.Cases.deaths),
             func.sum(models.Cases.recovered),
+            models.Cases.iso3
         )
         .filter(models.Cases.date.in_(subquery3))
         .group_by(models.Cases.iso3)
@@ -132,7 +138,7 @@ def worldwidedead():
     dict3 = []
     for item in worldwidedead:
         dict3.append(
-            {"country": item[0], "Deaths": item[3], "Last Update": str(item[1])}
+            {"ISO3": item[5], "country": item[0], "Deaths": item[3], "Last Update": str(item[1])}
         )
     dicts3 = json.dumps(dict3)
     return dicts3
@@ -151,6 +157,7 @@ def worldwiderecovered():
             func.sum(models.Cases.confirmed),
             func.sum(models.Cases.deaths),
             func.sum(models.Cases.recovered),
+            models.Cases.iso3
         )
         .filter(models.Cases.date.in_(subquery4))
         .group_by(models.Cases.iso3)
@@ -159,7 +166,7 @@ def worldwiderecovered():
     dict4 = []
     for item in worldwiderecovered:
         dict4.append(
-            {"country": item[0], "Recovered": item[4], "Last Update": str(item[1])}
+            {"ISO3": item[5], "country": item[0], "Recovered": item[4], "Last Update": str(item[1])}
         )
     dicts4 = json.dumps(dict4)
     return dicts4
@@ -178,6 +185,7 @@ def countrytotals(iso3):
             func.sum(models.Cases.confirmed),
             func.sum(models.Cases.deaths),
             func.sum(models.Cases.recovered),
+            models.Cases.iso3
         )
         .filter(iso3 == models.Cases.iso3)
         .filter(models.Cases.date.in_(subquery5))
@@ -188,6 +196,7 @@ def countrytotals(iso3):
     for item in countrytotals:
         dict5.append(
             {
+                "ISO3": item[5],
                 "country": item[0],
                 "Last Update": str(item[1]),
                 "Cases": item[2],
@@ -212,6 +221,7 @@ def countrycases(iso3):
             func.sum(models.Cases.confirmed),
             func.sum(models.Cases.deaths),
             func.sum(models.Cases.recovered),
+            models.Cases.iso3
         )
         .filter(iso3 == models.Cases.iso3)
         .filter(models.Cases.date.in_(subquery6))
@@ -221,7 +231,7 @@ def countrycases(iso3):
     dict6 = []
     for item in countrycases:
         dict6.append(
-            {"country": item[0], "Cases": item[2], "Last Updated": str(item[1])}
+            {"ISO3": item[5], "country": item[0], "Cases": item[2], "Last Updated": str(item[1])}
         )
     dicts6 = json.dumps(dict6)
     return dicts6
@@ -240,6 +250,7 @@ def countrydead(iso3):
             func.sum(models.Cases.confirmed),
             func.sum(models.Cases.deaths),
             func.sum(models.Cases.recovered),
+            models.Cases.iso3
         )
         .filter(iso3 == models.Cases.iso3)
         .filter(models.Cases.date.in_(subquery7))
@@ -249,7 +260,7 @@ def countrydead(iso3):
     dict7 = []
     for item in countrydead:
         dict7.append(
-            {"country": item[0], "Deaths": item[3], "Last Update": str(item[1])}
+            {"ISO3": item[5], "country": item[0], "Deaths": item[3], "Last Update": str(item[1])}
         )
     dicts7 = json.dumps(dict7)
     return dicts7
@@ -268,6 +279,7 @@ def countryrecovered(iso3):
             func.sum(models.Cases.confirmed),
             func.sum(models.Cases.deaths),
             func.sum(models.Cases.recovered),
+            models.Cases.iso3
         )
         .filter(iso3 == models.Cases.iso3)
         .filter(models.Cases.date.in_(subquery8))
@@ -277,7 +289,7 @@ def countryrecovered(iso3):
     dict8 = []
     for item in countryrecovered:
         dict8.append(
-            {"country": item[0], "Recovered": item[4], "Last Update": str(item[1]),}
+            {"ISO3": item[5], "country": item[0], "Recovered": item[4], "Last Update": str(item[1]),}
         )
     dicts8 = json.dumps(dict8)
     return dicts8
@@ -295,6 +307,7 @@ def countrytimeseries(iso3):
             func.sum(models.Cases.confirmed),
             func.sum(models.Cases.deaths),
             func.sum(models.Cases.recovered),
+            models.Cases.iso3
         )
         .filter(iso3 == models.Cases.iso3)
         .group_by(models.Cases.date)
@@ -304,6 +317,7 @@ def countrytimeseries(iso3):
     for item in countrytimeseries:
         dict9.append(
             {
+                "ISO3": item[5],
                 "country": item[0],
                 "Total Results as of Date": str(item[1]),
                 "Cases": item[2],
@@ -327,6 +341,7 @@ def globaltimeseries():
             func.sum(models.Cases.confirmed),
             func.sum(models.Cases.deaths),
             func.sum(models.Cases.recovered),
+            models.Cases.iso3
         )
         .group_by(models.Cases.date)
         .all()
@@ -335,6 +350,7 @@ def globaltimeseries():
     for item in globaltimeseries:
         dict10.append(
             {
+                "ISO3": item[5],
                 "Total Results as of Date": str(item[1]),
                 "Cases": item[2],
                 "Deaths": item[3],
@@ -357,6 +373,7 @@ def casestimeseries():
             func.sum(models.Cases.confirmed),
             func.sum(models.Cases.deaths),
             func.sum(models.Cases.recovered),
+            models.Cases.iso3
         )
         .group_by(models.Cases.date)
         .all()
@@ -364,7 +381,7 @@ def casestimeseries():
     dict11 = []
     for item in casestimeseries:
         dict11.append(
-            {"Total Results as of Date": str(item[1]), "Cases": item[2],}
+            {"ISO3": item[5], "Total Results as of Date": str(item[1]), "Cases": item[2],}
         )
     dicts11 = json.dumps(dict11)
     return dicts11
@@ -380,6 +397,7 @@ def deadtimeseries():
             func.sum(models.Cases.confirmed),
             func.sum(models.Cases.deaths),
             func.sum(models.Cases.recovered),
+            models.Cases.iso3
         )
         .group_by(models.Cases.date)
         .all()
@@ -387,7 +405,7 @@ def deadtimeseries():
     dict12 = []
     for item in deadtimeseries:
         dict12.append(
-            {"Total Results as of Date": str(item[1]), "Deaths": item[3],}
+            {"ISO3": item[5], "Total Results as of Date": str(item[1]), "Deaths": item[3],}
         )
     dicts12 = json.dumps(dict12)
     return dicts12
@@ -403,6 +421,7 @@ def recoveredtimeseries():
             func.sum(models.Cases.confirmed),
             func.sum(models.Cases.deaths),
             func.sum(models.Cases.recovered),
+            models.Cases.iso3
         )
         .group_by(models.Cases.date)
         .all()
@@ -410,7 +429,7 @@ def recoveredtimeseries():
     dict13 = []
     for item in recoveredtimeseries:
         dict13.append(
-            {"Total Results as of Date": str(item[1]), "Recovered": item[4],}
+            {"ISO3": item[5], "Total Results as of Date": str(item[1]), "Recovered": item[4],}
         )
     dicts13 = json.dumps(dict13)
     return dicts13
@@ -428,6 +447,7 @@ def countrycasestimeseries(iso3):
             func.sum(models.Cases.confirmed),
             func.sum(models.Cases.deaths),
             func.sum(models.Cases.recovered),
+            models.Cases.iso3
         )
         .filter(iso3 == models.Cases.iso3)
         .group_by(models.Cases.date)
@@ -436,7 +456,7 @@ def countrycasestimeseries(iso3):
     dict14 = []
     for item in countrycasestimeseries:
         dict14.append(
-            {"Total Results as of Date": str(item[1]), "Cases": item[2],}
+            {"ISO3": item[5], "Total Results as of Date": str(item[1]), "Cases": item[2],}
         )
     dicts14 = json.dumps(dict14)
     return dicts14
@@ -452,6 +472,7 @@ def countrydeadtimeseries(iso3):
             func.sum(models.Cases.confirmed),
             func.sum(models.Cases.deaths),
             func.sum(models.Cases.recovered),
+            models.Cases.iso3
         )
         .filter(iso3 == models.Cases.iso3)
         .group_by(models.Cases.date)
@@ -460,7 +481,7 @@ def countrydeadtimeseries(iso3):
     dict15 = []
     for item in countrydeadtimeseries:
         dict15.append(
-            {"Total Results as of Date": str(item[1]), "Deaths": item[3],}
+            {"ISO3": item[5], "Total Results as of Date": str(item[1]), "Deaths": item[3],}
         )
     dicts15 = json.dumps(dict15)
     return dicts15
@@ -476,6 +497,7 @@ def countryrecoveredtimeseries(iso3):
             func.sum(models.Cases.confirmed),
             func.sum(models.Cases.deaths),
             func.sum(models.Cases.recovered),
+            models.Cases.iso3
         )
         .group_by(models.Cases.date)
         .all()
@@ -483,11 +505,239 @@ def countryrecoveredtimeseries(iso3):
     dict16 = []
     for item in countryrecoveredtimeseries:
         dict16.append(
-            {"Total Results as of Date": str(item[1]), "Recovered": item[4],}
+            {"ISO3": item[5], "Total Results as of Date": str(item[1]), "Recovered": item[4],}
         )
     dicts16 = json.dumps(dict16)
     return dicts16
 
+# API Route 17: Totals for Every Country Worldwide as of Particular Date
+@app.route("/API/bydate/<asof>")
+def worldwidetotalsdate(asof):
+    worldwidetotalsdate = (
+        app.session.query(
+            models.Cases.country_region,
+            models.Cases.date,
+            func.sum(models.Cases.confirmed),
+            func.sum(models.Cases.deaths),
+            func.sum(models.Cases.recovered),
+            models.Cases.iso3
+        )
+        .filter(datetime.datetime.strptime(asof, "%Y-%m-%d") == models.Cases.date)
+        .group_by(models.Cases.iso3)
+        .all()
+    )
+    dict17 = []
+    for item in worldwidetotalsdate:
+        dict17.append(
+            {   
+                "ISO3": item[5],
+                "country": item[0],
+                "Date": str(item[1]),
+                "Cases": item[2],
+                "Deaths": item[3],
+                "Recovered": item[4],
+            }
+        )
+    dicts17 = json.dumps(dict17)
+    return dicts17
+
+# API Route 18: Most Recent Confirmed Cases for Every Country Worldwide as of Particular Date
+
+@app.route("/API/cases/bydate/<asof>")
+def worldwidecasesdate(asof):
+    worldwidecasesdate = (
+        app.session.query(
+            models.Cases.country_region,
+            models.Cases.date,
+            func.sum(models.Cases.confirmed),
+            func.sum(models.Cases.deaths),
+            func.sum(models.Cases.recovered),
+            models.Cases.iso3
+        )
+        .filter(datetime.datetime.strptime(asof, "%Y-%m-%d") == models.Cases.date)
+        .group_by(models.Cases.iso3)
+        .all()
+    )
+    dict18 = []
+    for item in worldwidecasesdate:
+        dict18.append(
+            {"ISO3": item[5], "country": item[0], "Cases": item[2], "Last Update": str(item[1])}
+        )
+    dicts18 = json.dumps(dict18)
+    return dicts18
+
+
+# API Route 19: Most Recent Deaths for Every Country Worldwide as of Particular Date
+
+
+@app.route("/API/dead/bydate/<asof>")
+def worldwidedeaddate(asof):
+    worldwidedeaddate = (
+        app.session.query(
+            models.Cases.country_region,
+            models.Cases.date,
+            func.sum(models.Cases.confirmed),
+            func.sum(models.Cases.deaths),
+            func.sum(models.Cases.recovered),
+            models.Cases.iso3
+        )
+        .filter(datetime.datetime.strptime(asof, "%Y-%m-%d") == models.Cases.date)
+        .group_by(models.Cases.iso3)
+        .all()
+    )
+    dict19 = []
+    for item in worldwidedeaddate:
+        dict19.append(
+            {"ISO3": item[5], "country": item[0], "Deaths": item[3], "Last Update": str(item[1])}
+        )
+    dicts19 = json.dumps(dict19)
+    return dicts19
+
+
+# API Route 20: Most Recent Number of Recoveries for Every Country Worldwide as of Particular Date
+
+
+@app.route("/API/recovered/bydate/<asof>")
+def worldwiderecovereddate(asof):
+    worldwiderecovereddate = (
+        app.session.query(
+            models.Cases.country_region,
+            models.Cases.date,
+            func.sum(models.Cases.confirmed),
+            func.sum(models.Cases.deaths),
+            func.sum(models.Cases.recovered),
+            models.Cases.iso3
+        )
+        .filter(datetime.datetime.strptime(asof, "%Y-%m-%d") == models.Cases.date)
+        .group_by(models.Cases.iso3)
+        .all()
+    )
+    dict20 = []
+    for item in worldwiderecovereddate:
+        dict20.append(
+            {"ISO3": item[5], "country": item[0], "Recovered": item[4], "Last Update": str(item[1])}
+        )
+    dicts20 = json.dumps(dict20)
+    return dicts20
+
+
+# API Route 21: Most Recent Totals by Country as of Particular Date
+
+
+@app.route("/API/<iso3>/bydate/<asof>")
+def countrytotalsdate(iso3, asof):
+    countrytotalsdate = (
+        app.session.query(
+            models.Cases.country_region,
+            models.Cases.date,
+            func.sum(models.Cases.confirmed),
+            func.sum(models.Cases.deaths),
+            func.sum(models.Cases.recovered),
+            models.Cases.iso3
+        )
+        .filter(iso3 == models.Cases.iso3)
+        .filter(datetime.datetime.strptime(asof, "%Y-%m-%d") == models.Cases.date)
+        .group_by(models.Cases.iso3)
+        .all()
+    )
+    dict21 = []
+    for item in countrytotalsdate:
+        dict21.append(
+            {
+                "ISO3": item[5],
+                "country": item[0],
+                "Last Update": str(item[1]),
+                "Cases": item[2],
+                "Deaths": item[3],
+                "Recovered": item[4],
+            }
+        )
+    dicts21 = json.dumps(dict21)
+    return dicts21
+
+
+# API Route 22: Most Recent Cases by Country as of Particular Date
+
+
+@app.route("/API/cases/<iso3>/bydate/<asof>")
+def countrycasesdate(iso3, asof):
+    countrycasesdate = (
+        app.session.query(
+            models.Cases.country_region,
+            models.Cases.date,
+            func.sum(models.Cases.confirmed),
+            func.sum(models.Cases.deaths),
+            func.sum(models.Cases.recovered),
+            models.Cases.iso3
+        )
+        .filter(iso3 == models.Cases.iso3)
+        .filter(datetime.datetime.strptime(asof, "%Y-%m-%d") == models.Cases.date)
+        .group_by(models.Cases.iso3)
+        .all()
+    )
+    dict22 = []
+    for item in countrycasesdate:
+        dict22.append(
+            {"ISO3": item[5], "country": item[0], "Cases": item[2], "Last Updated": str(item[1])}
+        )
+    dicts22 = json.dumps(dict22)
+    return dicts22
+
+
+# API Route 23: Most Recent Dead by Country as of Particular Date
+
+
+@app.route("/API/dead/<iso3>/bydate/<asof>")
+def countrydeaddate(iso3, asof):
+    countrydeaddate = (
+        app.session.query(
+            models.Cases.country_region,
+            models.Cases.date,
+            func.sum(models.Cases.confirmed),
+            func.sum(models.Cases.deaths),
+            func.sum(models.Cases.recovered),
+            models.Cases.iso3
+        )
+        .filter(iso3 == models.Cases.iso3)
+        .filter(datetime.datetime.strptime(asof, "%Y-%m-%d") == models.Cases.date)
+        .group_by(models.Cases.iso3)
+        .all()
+    )
+    dict23 = []
+    for item in countrydeaddate:
+        dict23.append(
+            {"ISO3": item[5], "country": item[0], "Deaths": item[3], "Last Update": str(item[1])}
+        )
+    dicts23 = json.dumps(dict23)
+    return dicts23
+
+
+# API Route 24: Most Recent Recovered by Country as of Particular Date
+
+
+@app.route("/API/recovered/<iso3>/bydate/<asof>")
+def countryrecovereddate(iso3, asof):
+    countryrecovereddate = (
+        app.session.query(
+            models.Cases.country_region,
+            models.Cases.date,
+            func.sum(models.Cases.confirmed),
+            func.sum(models.Cases.deaths),
+            func.sum(models.Cases.recovered),
+            models.Cases.iso3
+        )
+        .filter(iso3 == models.Cases.iso3)
+        .filter(datetime.datetime.strptime(asof, "%Y-%m-%d") == models.Cases.date)
+        .group_by(models.Cases.iso3)
+        .all()
+    )
+    dict24 = []
+    for item in countryrecovereddate:
+        dict24.append(
+            {"ISO3": item[5], "country": item[0], "Recovered": item[4], "Last Update": str(item[1]),}
+        )
+    dicts24 = json.dumps(dict24)
+    return dicts24
 
 # All records (from Daniela)
 @app.route("/records/")
