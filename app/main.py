@@ -55,7 +55,7 @@ def routes():
 
 
 # API Route 1: Most Recent Totals for Every Country Worldwide
-@app.route("/API/most_recent")
+@app.route("/API/most_recent/")
 def worldwidetotals():
     subquery1 = app.session.query(func.max(models.Cases.date)).subquery()
     worldwidetotals = (
@@ -77,7 +77,7 @@ def worldwidetotals():
             {
                 "ISO3": item[5],
                 "country": item[0],
-                "Date": str(item[1]),
+                "Last Update": str(item[1]),
                 "Cases": item[2],
                 "Deaths": item[3],
                 "Recovered": item[4],
@@ -90,7 +90,7 @@ def worldwidetotals():
 # API Route 2: Most Recent Confirmed Cases for Every Country Worldwide
 
 
-@app.route("/API/cases")
+@app.route("/API/cases/")
 def worldwidecases():
     subquery2 = app.session.query(func.max(models.Cases.date)).subquery()
     worldwidecases = (
@@ -540,7 +540,7 @@ def worldwidetotalsdate(asof):
     dicts17 = json.dumps(dict17)
     return dicts17
 
-# API Route 18: Most Recent Confirmed Cases for Every Country Worldwide as of Particular Date
+# API Route 18: Confirmed Cases for Every Country Worldwide as of Particular Date
 
 @app.route("/API/cases/bydate/<asof>")
 def worldwidecasesdate(asof):
@@ -566,7 +566,7 @@ def worldwidecasesdate(asof):
     return dicts18
 
 
-# API Route 19: Most Recent Deaths for Every Country Worldwide as of Particular Date
+# API Route 19: Deaths for Every Country Worldwide as of Particular Date
 
 
 @app.route("/API/dead/bydate/<asof>")
@@ -620,7 +620,7 @@ def worldwiderecovereddate(asof):
     return dicts20
 
 
-# API Route 21: Most Recent Totals by Country as of Particular Date
+# API Route 21: Totals by Country as of Particular Date
 
 
 @app.route("/API/<iso3>/bydate/<asof>")
@@ -655,7 +655,7 @@ def countrytotalsdate(iso3, asof):
     return dicts21
 
 
-# API Route 22: Most Recent Cases by Country as of Particular Date
+# API Route 22: Cases by Country as of Particular Date
 
 
 @app.route("/API/cases/<iso3>/bydate/<asof>")
@@ -683,7 +683,7 @@ def countrycasesdate(iso3, asof):
     return dicts22
 
 
-# API Route 23: Most Recent Dead by Country as of Particular Date
+# API Route 23: Dead by Country as of Particular Date
 
 
 @app.route("/API/dead/<iso3>/bydate/<asof>")
@@ -711,7 +711,7 @@ def countrydeaddate(iso3, asof):
     return dicts23
 
 
-# API Route 24: Most Recent Recovered by Country as of Particular Date
+# API Route 24: Recovered by Country as of Particular Date
 
 
 @app.route("/API/recovered/<iso3>/bydate/<asof>")
@@ -737,6 +737,216 @@ def countryrecovereddate(iso3, asof):
         )
     dicts24 = json.dumps(dict24)
     return dicts24
+
+# API Route 25: Most Recent Totals Globally (sum)
+@app.route("/API/global/most_recent")
+def globaltotals():
+    subquery25 = app.session.query(func.max(models.Cases.date)).subquery()
+    globaltotals = (
+        app.session.query(
+            models.Cases.country_region,
+            models.Cases.date,
+            func.sum(models.Cases.confirmed),
+            func.sum(models.Cases.deaths),
+            func.sum(models.Cases.recovered),
+        )
+        .filter(models.Cases.date.in_(subquery25))
+        .all()
+    )
+    dict25 = []
+    for item in globaltotals:
+        dict25.append(
+            {
+                "Last Update": str(item[1]),
+                "Cases": item[2],
+                "Deaths": item[3],
+                "Recovered": item[4],
+            }
+        )
+    dicts25 = json.dumps(dict25)
+    return dicts25
+
+
+# API Route 26: Most Recent Confirmed Cases Globally (sum)
+
+
+@app.route("/API/global/cases")
+def globalcases():
+    subquery26 = app.session.query(func.max(models.Cases.date)).subquery()
+    globalcases = (
+        app.session.query(
+            models.Cases.country_region,
+            models.Cases.date,
+            func.sum(models.Cases.confirmed),
+            func.sum(models.Cases.deaths),
+            func.sum(models.Cases.recovered),
+        )
+        .filter(models.Cases.date.in_(subquery26))
+        .all()
+    )
+    dict26 = []
+    for item in globalcases:
+        dict26.append(
+            {"Cases": item[2], "Last Update": str(item[1])}
+        )
+    dicts26 = json.dumps(dict26)
+    return dicts26
+
+
+# API Route 27: Most Recent Deaths Globally (sum)
+
+
+@app.route("/API/global/dead")
+def globaldead():
+    subquery27 = app.session.query(func.max(models.Cases.date)).subquery()
+    globaldead = (
+        app.session.query(
+            models.Cases.country_region,
+            models.Cases.date,
+            func.sum(models.Cases.confirmed),
+            func.sum(models.Cases.deaths),
+            func.sum(models.Cases.recovered),
+        )
+        .filter(models.Cases.date.in_(subquery27))
+        .all()
+    )
+    dict27 = []
+    for item in globaldead:
+        dict27.append(
+            {"Deaths": item[3], "Last Update": str(item[1])}
+        )
+    dicts27 = json.dumps(dict27)
+    return dicts27
+
+
+# API Route 28: Most Recent Number of Recoveries Globally (sum)
+
+
+@app.route("/API/global/recovered")
+def globalcovered():
+    subquery28 = app.session.query(func.max(models.Cases.date)).subquery()
+    globalrecovered = (
+        app.session.query(
+            models.Cases.country_region,
+            models.Cases.date,
+            func.sum(models.Cases.confirmed),
+            func.sum(models.Cases.deaths),
+            func.sum(models.Cases.recovered),
+        )
+        .filter(models.Cases.date.in_(subquery28))
+        .all()
+    )
+    dict28 = []
+    for item in globalrecovered:
+        dict28.append(
+            {"Recovered": item[4], "Last Update": str(item[1])}
+        )
+    dicts28 = json.dumps(dict28)
+    return dicts28
+
+# API Route 29: Totals Globally (sum) as of Particular Date
+
+
+@app.route("/API/global/bydate/<asof>")
+def globallytotalsdate(asof):
+    globallytotalsdate = (
+        app.session.query(
+            models.Cases.country_region,
+            models.Cases.date,
+            func.sum(models.Cases.confirmed),
+            func.sum(models.Cases.deaths),
+            func.sum(models.Cases.recovered),
+        )
+        .filter(datetime.datetime.strptime(asof, "%Y-%m-%d") == models.Cases.date)
+        .all()
+    )
+    dict29 = []
+    for item in globallytotalsdate:
+        dict29.append(
+            {
+                "Last Update": str(item[1]),
+                "Cases": item[2],
+                "Deaths": item[3],
+                "Recovered": item[4],
+            }
+        )
+    dicts29 = json.dumps(dict29)
+    return dicts29
+
+
+# API Route 30: Cases Globally (sum) as of Particular Date
+
+
+@app.route("/API/cases/global/bydate/<asof>")
+def globallycasesdate(asof):
+    globallycasesdate = (
+        app.session.query(
+            models.Cases.country_region,
+            models.Cases.date,
+            func.sum(models.Cases.confirmed),
+            func.sum(models.Cases.deaths),
+            func.sum(models.Cases.recovered),
+        )
+        .filter(datetime.datetime.strptime(asof, "%Y-%m-%d") == models.Cases.date)
+        .all()
+    )
+    dict30 = []
+    for item in globallycasesdate:
+        dict30.append(
+            {"Cases": item[2], "Last Updated": str(item[1])}
+        )
+    dicts30 = json.dumps(dict30)
+    return dicts30
+
+
+# API Route 31: Dead Globally (sum) as of Particular Date
+
+
+@app.route("/API/dead/global/bydate/<asof>")
+def globallydeaddate(asof):
+    globallydeaddate = (
+        app.session.query(
+            models.Cases.country_region,
+            models.Cases.date,
+            func.sum(models.Cases.confirmed),
+            func.sum(models.Cases.deaths),
+            func.sum(models.Cases.recovered),
+        )
+        .filter(datetime.datetime.strptime(asof, "%Y-%m-%d") == models.Cases.date)
+        .all()
+    )
+    dict31 = []
+    for item in globallydeaddate:
+        dict31.append(
+            {"Deaths": item[3], "Last Update": str(item[1])}
+        )
+    dicts31 = json.dumps(dict31)
+    return dicts31
+
+
+# API Route 32: Recovered Globally (sum) as of Particular Date
+
+
+@app.route("/API/recovered/global/bydate/<asof>")
+def globallyrecovereddate(asof):
+    globallyrecovereddate = (
+        app.session.query(
+            models.Cases.country_region,
+            models.Cases.date,
+            func.sum(models.Cases.confirmed),
+            func.sum(models.Cases.deaths),
+            func.sum(models.Cases.recovered),
+        )
+        .filter(datetime.datetime.strptime(asof, "%Y-%m-%d") == models.Cases.date)
+        .all()
+    )
+    dict32 = []
+    for item in globallyrecovereddate:
+        dict32.append(
+            {"Recovered": item[4], "Last Update": str(item[1]),}
+        )
+    dicts32 = json.dumps(dict32)
+    return dicts32
 
 # All records (from Daniela)
 @app.route("/records/")
