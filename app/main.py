@@ -42,9 +42,9 @@ app.session = scoped_session(SessionLocal, scopefunc=_app_ctx_stack.__ident_func
 
 @app.route("/")
 def home():
-    deaths = json.loads(globaltimeseries())[-1].get("Deaths")
-    cases = json.loads(globaltimeseries())[-1].get("Cases")
-    recovered = json.loads(globaltimeseries())[-1].get("Recovered")
+    deaths = int(json.loads(globaltimeseries())[-1].get("Deaths"))
+    cases = int(json.loads(globaltimeseries())[-1].get("Cases"))
+    recovered = int(json.loads(globaltimeseries())[-1].get("Recovered"))
     return render_template(
         "index.html", bar=bar_div, deaths=deaths, cases=cases, recovered=recovered
     )

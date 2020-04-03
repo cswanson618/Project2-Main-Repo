@@ -3,11 +3,11 @@
 <section class="home">
 </section>
 <div class='bodyDiv' style="container-fluid">
-    <div class="row">
-        <div class="col-4">
+    <div class="row mt-5 mb-5">
+        <div class="col-4 mt-5">
             <div class="row">
                 <div class="col-12">
-                    <div class="card float-right" style="width: 30rem">
+                    <div class="card float-right bg-dark" style="width: 30rem">
                         <div class="card-body">
                             <h3 class="card-title cardH3">Total World Cases</h3>
                             <p class="card-text cardP">{{ cases }}</p>
@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <div class="col-12">
-                    <div class="card float-right" style="width: 30rem">
+                    <div class="card float-right bg-dark" style="width: 30rem">
                         <div class="card-body">
                             <h3 class="card-title cardH3">Total World Recovered</h3>
                             <p class="card-text cardP">{{ recovered }}</p>
@@ -62,7 +62,7 @@
         </div>
     </div>
 </div>
-<div class='plotsDiv' alt="Max-width 100%">
+<div class='plotsDiv mt-5' alt="Max-width 100%">
     <div class="col-11" style="height: 900px; Max-width: 100%">
         {{ bar | safe }} 
         
