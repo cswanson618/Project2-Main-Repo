@@ -376,6 +376,8 @@ body {
 	font-size: 20px;
 }
 .myUL {
+    text-align: left;
+    font-size: 16px;
     padding-left:30%;
     padding-right:30%;
 }

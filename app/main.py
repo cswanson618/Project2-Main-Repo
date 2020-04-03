@@ -7,7 +7,7 @@ from sqlalchemy import func, MetaData, desc, Column, Integer, String, DateTime, 
 
 from . import models
 from .database import SessionLocal, engine
-from .plot import bar_div, bubble_div
+from .plot import bar_fig, bubble_fig
 
 import json
 
@@ -23,7 +23,7 @@ def home():
     deaths = json.loads(globaltimeseries())[-1].get("Deaths")
     cases = json.loads(globaltimeseries())[-1].get("Cases")
     recovered = json.loads(globaltimeseries())[-1].get("Recovered")
-    return render_template("index.html", bar=bar_div, deaths=deaths, cases=cases, recovered=recovered)
+    return render_template("index.html", bar=bar_fig(), deaths=deaths, cases=cases, recovered=recovered)
 
 @app.route("/routes")
 def routes():
@@ -304,7 +304,7 @@ def map():
 
 @app.route("/plot")
 def render_plots():
-    return render_template("plot.html", bar=bar_div, bubble=bubble_div)
+    return render_template("plot.html", bubble=bubble_fig())
  
 @app.teardown_appcontext
 def remove_session(*args, **kwargs):
