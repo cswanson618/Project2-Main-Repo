@@ -53,6 +53,10 @@ def home():
 def routes():
     return render_template("routes.html")
 
+@app.route("/team")
+def team():
+    return render_template("team.html")
+
 
 # API Route 1: Most Recent Totals for Every Country Worldwide
 @app.route("/API/most_recent/")

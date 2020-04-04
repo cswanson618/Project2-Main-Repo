@@ -21,6 +21,7 @@
                     <li><a href="{{ url_for('render_plots') }}">Animated Plots</a></li>
                     <li><a href="{{ url_for('map') }}">Map</a></li>
                     <li><a href="{{ url_for('routes') }}">All Routes</a></li>
+                    <li><a href="{{ url_for('team') }}">The Team</a></li>
                 </ul>
             </div>
             <span class="navTrigger">
@@ -46,13 +47,13 @@
     
             <!-- Content -->
                 <div class="card" style="width: 18rem; background-color: #fff">
-                    <img class="card-img-top" src="https://scontent-dfw5-2.xx.fbcdn.net/v/t31.0-8/p960x960/13243879_10209174183769519_2233709179744300856_o.jpg?_nc_cat=107&_nc_sid=daf655&_nc_ohc=Hm1VWJxgp_UAX9j3oPZ&_nc_ht=scontent-dfw5-2.xx&_nc_tp=6&oh=0664098a700ef60c5de02684f71c4cc4&oe=5EAC86EA" alt="Card image cap">
+                    <img class="card-img-top" src="{{ url_for('static', filename='images/Edward.jpg') }}" alt="Card image cap">
                     <div class="card-body">
-                        <h5 class="card-title">Josh Farmer</h5>
-                        <p class="card-text">Josh is the front end developer for this project, and worked primarily with Flask, HTML, CSS and Javascript</p>
+                        <h5 class="card-title">Edward Haarmann IV</h5>
+                        <p class="card-text">Ed was the Project Manager. He was responsible for helping coordinate frontend and backend compatibility and created the map graphic using D3 and Plotly.</p>
                     </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Front End Developer</li>
+                            <li class="list-group-item">Project Manager</li>
                             <li class="list-group-item">Began coding in 2019</li>
                         </ul>
                     <div class="card-body">
@@ -66,10 +67,29 @@
     
                 <!-- Content -->
                 <div class="card" style="width: 18rem; background-color: #fff">
-                    <img class="card-img-top" src="https://scontent-dfw5-2.xx.fbcdn.net/v/t31.0-8/p960x960/13243879_10209174183769519_2233709179744300856_o.jpg?_nc_cat=107&_nc_sid=daf655&_nc_ohc=Hm1VWJxgp_UAX9j3oPZ&_nc_ht=scontent-dfw5-2.xx&_nc_tp=6&oh=0664098a700ef60c5de02684f71c4cc4&oe=5EAC86EA" alt="Card image cap">
+                    <img class="card-img-top" src="{{ url_for('static', filename='images/Daniela.jpg') }}" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Daniela Matos</h5>
+                        <p class="card-text">Daniela was a backend developer as well as a tester for this project. She built the structure that pulled the data from all of our data sources and built the databases to be served to the front end, as well as tested deployments.</p>
+                    </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Backend Developer/Tester</li>
+                            <li class="list-group-item">Began coding in 2019</li>
+                        </ul>
+                    <div class="card-body">
+                        <a href="https://www.linkedin.com/in/yesandfarmer/" class="card-link">LinkedIn</a>
+                    </div>
+                </div>
+    
+            </div>
+            <div class="col-sm">
+    
+                <!-- Content -->
+                <div class="card" style="width: 18rem; background-color: #fff">
+                    <img class="card-img-top" src="{{ url_for('static', filename='images/Josh.jpg') }}" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">Josh Farmer</h5>
-                        <p class="card-text">Josh is the front end developer for this project, and worked primarily with Flask, HTML, CSS and Javascript</p>
+                        <p class="card-text">Josh is the front end developer for this project, and worked primarily with Flask, HTML, CSS and Javascript. Additionally he helping with coding and routing to deliver the data from the backend to the front, as well as testing various deployments.</p>
                     </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">Front End Developer</li>
@@ -87,11 +107,11 @@
                 <div class="card" style="width: 18rem; background-color: #fff">
                     <img class="card-img-top" src="https://scontent-dfw5-2.xx.fbcdn.net/v/t31.0-8/p960x960/13243879_10209174183769519_2233709179744300856_o.jpg?_nc_cat=107&_nc_sid=daf655&_nc_ohc=Hm1VWJxgp_UAX9j3oPZ&_nc_ht=scontent-dfw5-2.xx&_nc_tp=6&oh=0664098a700ef60c5de02684f71c4cc4&oe=5EAC86EA" alt="Card image cap">
                     <div class="card-body">
-                        <h5 class="card-title">Josh Farmer</h5>
-                        <p class="card-text">Josh is the front end developer for this project, and worked primarily with Flask, HTML, CSS and Javascript</p>
+                        <h5 class="card-title">Christopher Swanson</h5>
+                        <p class="card-text">Chris was the Lead Developer for this project and responsible for managing the github as well as building the API that served all of the visualizations on the site. He was additionally the primary person responsible for verifying branches pushed before merging them to the master repo.</p>
                     </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Front End Developer</li>
+                            <li class="list-group-item">Lead Developer</li>
                             <li class="list-group-item">Began coding in 2019</li>
                         </ul>
                     <div class="card-body">
@@ -104,32 +124,13 @@
     
                 <!-- Content -->
                 <div class="card" style="width: 18rem; background-color: #fff">
-                    <img class="card-img-top" src="https://scontent-dfw5-2.xx.fbcdn.net/v/t31.0-8/p960x960/13243879_10209174183769519_2233709179744300856_o.jpg?_nc_cat=107&_nc_sid=daf655&_nc_ohc=Hm1VWJxgp_UAX9j3oPZ&_nc_ht=scontent-dfw5-2.xx&_nc_tp=6&oh=0664098a700ef60c5de02684f71c4cc4&oe=5EAC86EA" alt="Card image cap">
+                    <img class="card-img-top" src="{{ url_for('static', filename='images/Sinah.jpg') }}" alt="Card image cap">
                     <div class="card-body">
-                        <h5 class="card-title">Josh Farmer</h5>
-                        <p class="card-text">Josh is the front end developer for this project, and worked primarily with Flask, HTML, CSS and Javascript</p>
+                        <h5 class="card-title">Sinah Kang</h5>
+                        <p class="card-text">Sinah was the backend developer and tester for this project. She supporting building the databases from our various sources, helped trouble shoot servering this data and built the bar and bubble charts for our site.</p>
                     </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Front End Developer</li>
-                            <li class="list-group-item">Began coding in 2019</li>
-                        </ul>
-                    <div class="card-body">
-                        <a href="https://www.linkedin.com/in/yesandfarmer/" class="card-link">LinkedIn</a>
-                    </div>
-                </div>
-    
-            </div>
-            <div class="col-sm">
-    
-                <!-- Content -->
-                <div class="card" style="width: 18rem; background-color: #fff">
-                    <img class="card-img-top" src="https://scontent-dfw5-2.xx.fbcdn.net/v/t31.0-8/p960x960/13243879_10209174183769519_2233709179744300856_o.jpg?_nc_cat=107&_nc_sid=daf655&_nc_ohc=Hm1VWJxgp_UAX9j3oPZ&_nc_ht=scontent-dfw5-2.xx&_nc_tp=6&oh=0664098a700ef60c5de02684f71c4cc4&oe=5EAC86EA" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Josh Farmer</h5>
-                        <p class="card-text">Josh is the front end developer for this project, and worked primarily with Flask, HTML, CSS and Javascript</p>
-                    </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Front End Developer</li>
+                            <li class="list-group-item">Backend Developer/Tester</li>
                             <li class="list-group-item">Began coding in 2019</li>
                         </ul>
                     <div class="card-body">
