@@ -3,53 +3,83 @@
 <section class="home">
 </section>
 <div class='bodyDiv' style="container-fluid">
-    <h2 class="myH2">Current Covid-19 Data API</h2>
+    <h2 class="myH2">Current Covid-19 Data API Routes</h2>
     <p class="myP">
-        Access Covid-19 updated within the last 24 hours. This data is updated from several sources and aggregated here. 
+        Many of our API routes utilize dates or ISO3 codes. The date format is YYYY-MM-DD. (Example: 2020-03-15) ISO3 codes are 3 character country codes used for each country. For a list of ISO3 (alpha3 code) codes click <a href="https://www.iban.com/country-codes">here.</a>
+        Anywhere "iso3" or "date" are mentioned in a URL, simply replace that with the appropriate date or ISO3 code.
     </p>
-    <div class="card mx-auto" style="width: 90rem">
-        <div class="card-head">
-            <h3 class="card-title text-center cardH3">Call Current Global Covid-19 Data</h3>
-        </div>
-        <div class="card-body">
-            <p class="card-text  text-center cardP">
-                <strong>This will querry the most recent Covid-19 data.</strong></br>
-                API CALL:</br>
-                URL/API/most_recent</br>
-                <strong>Additionally, you can querry most re</strong>
-            </p>
-        </div>
-    </div>
-    <div class="card bg-secondary mx-auto" style="width: 90rem">
-        <div class="card-head">
-            <h3 class="card-title text-center cardH3">Call Current Covid-19 Cases by Country</h3>
-        </div>
-        <div class="card-body">
-            <p class="card-text  text-center cardP">
-                <strong>This will querry the most recent Covid-19 data.</strong></br>
-                API CALL:</br>
-                URL/API/most_recent
-            </p>
-        </div>
-    </div>
-    <div class="card mx-auto" style="width: 90rem">
-        <div class="card-head">
-            <h3 class="card-title text-center cardH3">Call Current Global Covid-19 Data</h3>
-        </div>
-        <div class="card-body">
-            <p class="card-text  text-center cardP">
-                <strong>This will querry the most recent Covid-19 data.</strong></br>
-                API CALL:</br>
-                URL/API/most_recent
-            </p>
-        </div>
-    </div>
-    <h3 class='text-center'>Call Current Global Covid-19 Data</h3>
-    <p class="myP">
-        DESCRIPTION
-        This will querry the most recent Covid-19 data.
-        URL/API/most_recent
-    </p>
+    <table class="table table-hover ml-5 mr-5 mt-5 mb-5">
+        <thead class="myP">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">URL</th>
+            <th scope="col">Description</th>
+          </tr>
+        </thead>
+        <tbody class="myP">
+          <tr>
+            <th scope="row">1</th>
+            <td>Most Recent</td>
+            <td>URL/API/most_recent/</td>
+            <td>Most recent Totals for Every Country Worldwide</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Cases</td>
+            <td>URL/API/cases/</td>
+            <td>Most recent Total Cases for Every Country Worldwide</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Deaths</td>
+            <td>URL/API/dead/</td>
+            <td>Most recent Total Deaths for Every Country Worldwide</td>
+          </tr>
+          <tr>
+            <th scope="row">4</th>
+            <td>Most Recent Recovered</td>
+            <td>URL/API/recovered</td>
+            <td>Most recent Total Recovered for Every Country Worldwide</td>
+          </tr>
+          <tr>
+            <th scope="row">5</th>
+            <td>Most Recent by Country</td>
+            <td>URL/API/iso3</td>
+            <td>Most recent Totals by Country, searched by the country's ISO code</td>
+          </tr>
+          <tr>
+            <th scope="row">6</th>
+            <td>Most Recent Cases by Country</td>
+            <td>URL/API/cases/iso3</td>
+            <td>Most recent Cases by Country, searched by the country's ISO code</td>
+          </tr>
+          <tr>
+            <th scope="row">7</th>
+            <td>Most Recent Deaths by Country</td>
+            <td>URL/API/dead/iso3</td>
+            <td>Most recent Deaths by Country, searched by the country's ISO code</td>
+          </tr>
+          <tr>
+            <th scope="row">8</th>
+            <td>Most Recent Recoveries by Country</td>
+            <td>URL/API/recovered/iso3</td>
+            <td>Most recent Cases by Country, searched by the country's ISO code</td>
+          </tr>
+          <tr>
+            <th scope="row">9</th>
+            <td>Country Timeseries</td>
+            <td>URL/API/iso3/timeseries/</td>
+            <td>Time series data searched by country ISO code</td>
+          </tr>
+          <tr>
+            <th scope="row">10</th>
+            <td>Global Timeseries</td>
+            <td>URL/API/timeseries/</td>
+            <td>Global Timeseries Data</td>
+          </tr>
+        </tbody>
+      </table>
     
 </div>
 {% endblock %}
