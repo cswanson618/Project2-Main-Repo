@@ -400,16 +400,16 @@ body {
     padding-right:10%;
 }
 .myPFoot {
-	text-align: justify;
+	text-align: left;
 	padding-left:15%;
 	padding-right:15%;
     font-size: 15px;
-    color: #fff
 }
 .myHFoot {
     text-align: left;
+    padding-left:15%;
     padding-right:15%;
-    font-size: 15px;
+    font-size: 30px;
     color: #fff;
     text-transform: uppercase;
 }
