@@ -21,6 +21,7 @@
                     <li><a href="{{ url_for('render_plots') }}">Animated Plots</a></li>
                     <li><a href="{{ url_for('map') }}">Map</a></li>
                     <li><a href="{{ url_for('routes') }}">All Routes</a></li>
+                    <li><a href="{{ url_for('team') }}">The Team</a></li>
                 </ul>
             </div>
             <span class="navTrigger">
@@ -35,45 +36,36 @@
     <footer class="page-footer">
 
         <!-- Footer Text -->
-        <div class="container-fluid text-center text-md-left">
-    
-        <!-- Grid row -->
-        <div class="row footerRow">
-    
-            <!-- Grid column -->
-            <div class="col-md-6 mt-md-0 mt-3">
-    
-            <!-- Content -->
-            <h3 class="myHFoot">This page developed by:</h5>
-            <p class="myPFoot">
-                Christopher Swanson - Lead Developer<br/>
-                Daniela Matos - Backend Developer/Tester<br/>
-                Ed Haarmann IV - Project Manager<br/>
-                Josh Farmer - Front End Developer<br/>
-                Sinah Kang - Backend Developer/Tester
-            </p>
-    
+        <div class="container-fluid text-center">
+            <div class="row justify-content-center" style="text-align:left">
+                <div class="col-xl-4 col-md-6">
+                    <h2 class="myHFoot">Site Map</h2>
+                    <a class="myPFoot" href="{{ url_for('home') }}">Home</a></li></br>
+                    <a class="myPFoot" href="{{ url_for('render_plots') }}">Animated Plot</a></li></br>
+                    <a class="myPFoot" href="{{ url_for('map') }}">Map</a></li></br>
+                    <a class="myPFoot" href="{{ url_for('routes') }}">All Routes</a></li></br>
+                    <a class="myPFoot" href="{{ url_for('team') }}">The Team</a></li></br>
+                </div>
+                <div class="col-xl-4 col-md-6">
+                    <h2 class="myHFoot">Developers</h2>
+                    <a class="myPFoot" href="https://www.linkedin.com/in/edward-haarmann-iv/">Ed Haarmann IV - Project Manager</a></li></br>
+                    <a class="myPFoot" href="https://www.linkedin.com/in/daniela-lima-matos-22012115/">Daniela Matos - Backend Developer/Tester</a></li></br>
+                    <a class="myPFoot" href="https://www.linkedin.com/in/yesandfarmer/">Josh Farmer - Frontend Developer</a></li></br>
+                    <a class="myPFoot" href="https://www.linkedin.com/in/sinah-kang-a1869417a/">Sinah Kang - Backend Developer/Tester</a></li></br>
+                    <a class="myPFoot" href="https://www.linkedin.com/in/christopher-swanson-02904391/">Christopher Swanson - Lead Developer</a></li></br>
+                </div>
+                <div class="col-xl-4 col-md-6">
+                    <h2 class="myHFoot">Data Sources</h2>
+                    <a class="myPFoot" href="https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series">Github Time Series Data</a></li></br>
+                    <a class="myPFoot" href="https://data.worldbank.org/indicator/sp.pop.65up.to.zs">worldbank.org</a></li></br>
+                    <a class="myPFoot" href="">Source 3</a></li></br>
+                    <a class="myPFoot" href="">Source 4</a></li></br>
+                    <a class="myPFoot" href="">Source 5</a></li></br>
+                </div>
             </div>
-            <!-- Grid column -->
-    
-            <hr class="clearfix w-100 d-md-none pb-3">
-    
-            <!-- Grid column -->
-            <div class="col-md-6 mb-md-0 mb-3">
-    
-            <!-- Content -->
-            <h3 class="myHFoot">Footer text 2</h5>
-            <p class="myPFoot">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio deserunt fuga perferendis modi earum
-                commodi aperiam temporibus quod nulla nesciunt aliquid debitis ullam omnis quos ipsam, aspernatur id
-                excepturi hic.</p>
-    
-            </div>
-            <!-- Grid column -->
     
         </div>
         <!-- Grid row -->
-    
-        </div>
         <!-- Footer Text -->
     
         <!-- Copyright -->
@@ -86,9 +78,6 @@
 
     <!-- Jquery needed -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
-    <script src="{{ url_for('static', filename='analysis_plots.js') }}"></script>
-
 
     <!-- Function used to shrink nav bar removing paddings and adding black background -->
     <script>
