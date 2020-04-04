@@ -78,9 +78,9 @@ def worldwidetotals():
                 "ISO3": item[5],
                 "country": item[0],
                 "Last Update": str(item[1]),
-                "Cases": item[2],
-                "Deaths": item[3],
-                "Recovered": item[4],
+                "Cases": int(item[2]),
+                "Deaths": int(item[3]),
+                "Recovered": int(item[4]),
             }
         )
     dicts = json.dumps(dict)
@@ -109,7 +109,7 @@ def worldwidecases():
     dict2 = []
     for item in worldwidecases:
         dict2.append(
-            {"ISO3": item[5], "country": item[0], "Cases": item[2], "Last Update": str(item[1])}
+            {"ISO3": item[5], "country": item[0], "Cases": int(item[2]), "Last Update": str(item[1])}
         )
     dicts2 = json.dumps(dict2)
     return dicts2
@@ -137,7 +137,7 @@ def worldwidedead():
     dict3 = []
     for item in worldwidedead:
         dict3.append(
-            {"ISO3": item[5], "country": item[0], "Deaths": item[3], "Last Update": str(item[1])}
+            {"ISO3": item[5], "country": item[0], "Deaths": int(item[3]), "Last Update": str(item[1])}
         )
     dicts3 = json.dumps(dict3)
     return dicts3
@@ -165,7 +165,7 @@ def worldwiderecovered():
     dict4 = []
     for item in worldwiderecovered:
         dict4.append(
-            {"ISO3": item[5], "country": item[0], "Recovered": item[4], "Last Update": str(item[1])}
+            {"ISO3": item[5], "country": item[0], "Recovered": int(item[4]), "Last Update": str(item[1])}
         )
     dicts4 = json.dumps(dict4)
     return dicts4
@@ -198,9 +198,9 @@ def countrytotals(iso3):
                 "ISO3": item[5],
                 "country": item[0],
                 "Last Update": str(item[1]),
-                "Cases": item[2],
-                "Deaths": item[3],
-                "Recovered": item[4],
+                "Cases": int(item[2]),
+                "Deaths": int(item[3]),
+                "Recovered": int(item[4]),
             }
         )
     dicts5 = json.dumps(dict5)
@@ -230,7 +230,7 @@ def countrycases(iso3):
     dict6 = []
     for item in countrycases:
         dict6.append(
-            {"ISO3": item[5], "country": item[0], "Cases": item[2], "Last Updated": str(item[1])}
+            {"ISO3": item[5], "country": item[0], "Cases": int(item[2]), "Last Updated": str(item[1])}
         )
     dicts6 = json.dumps(dict6)
     return dicts6
@@ -259,7 +259,7 @@ def countrydead(iso3):
     dict7 = []
     for item in countrydead:
         dict7.append(
-            {"ISO3": item[5], "country": item[0], "Deaths": item[3], "Last Update": str(item[1])}
+            {"ISO3": item[5], "country": item[0], "Deaths": int(item[3]), "Last Update": str(item[1])}
         )
     dicts7 = json.dumps(dict7)
     return dicts7
@@ -288,7 +288,7 @@ def countryrecovered(iso3):
     dict8 = []
     for item in countryrecovered:
         dict8.append(
-            {"ISO3": item[5], "country": item[0], "Recovered": item[4], "Last Update": str(item[1]),}
+            {"ISO3": item[5], "country": item[0], "Recovered": int(item[4]), "Last Update": str(item[1]),}
         )
     dicts8 = json.dumps(dict8)
     return dicts8
@@ -319,9 +319,9 @@ def countrytimeseries(iso3):
                 "ISO3": item[5],
                 "country": item[0],
                 "Total Results as of Date": str(item[1]),
-                "Cases": item[2],
-                "Deaths": item[3],
-                "Recovered": item[4],
+                "Cases": int(item[2]),
+                "Deaths": int(item[3]),
+                "Recovered": int(item[4]),
             }
         )
     dicts9 = json.dumps(dict9)
@@ -349,11 +349,10 @@ def globaltimeseries():
     for item in globaltimeseries:
         dict10.append(
             {
-                "ISO3": item[5],
                 "Total Results as of Date": str(item[1]),
-                "Cases": item[2],
-                "Deaths": item[3],
-                "Recovered": item[4],
+                "Cases": int(item[2]),
+                "Deaths": int(item[3]),
+                "Recovered": int(item[4]),
             }
         )
     dicts10 = json.dumps(dict10)
@@ -380,7 +379,7 @@ def casestimeseries():
     dict11 = []
     for item in casestimeseries:
         dict11.append(
-            {"ISO3": item[5], "Total Results as of Date": str(item[1]), "Cases": item[2],}
+            {"Total Results as of Date": str(item[1]), "Cases": int(item[2]),}
         )
     dicts11 = json.dumps(dict11)
     return dicts11
@@ -404,7 +403,7 @@ def deadtimeseries():
     dict12 = []
     for item in deadtimeseries:
         dict12.append(
-            {"ISO3": item[5], "Total Results as of Date": str(item[1]), "Deaths": item[3],}
+            {"Total Results as of Date": str(item[1]), "Deaths": int(item[3]),}
         )
     dicts12 = json.dumps(dict12)
     return dicts12
@@ -428,7 +427,7 @@ def recoveredtimeseries():
     dict13 = []
     for item in recoveredtimeseries:
         dict13.append(
-            {"ISO3": item[5], "Total Results as of Date": str(item[1]), "Recovered": item[4],}
+            {"Total Results as of Date": str(item[1]), "Recovered": int(item[4]),}
         )
     dicts13 = json.dumps(dict13)
     return dicts13
@@ -455,7 +454,7 @@ def countrycasestimeseries(iso3):
     dict14 = []
     for item in countrycasestimeseries:
         dict14.append(
-            {"ISO3": item[5], "Total Results as of Date": str(item[1]), "Cases": item[2],}
+            {"ISO3": item[5], "Total Results as of Date": str(item[1]), "Cases": int(item[2]),}
         )
     dicts14 = json.dumps(dict14)
     return dicts14
@@ -480,7 +479,7 @@ def countrydeadtimeseries(iso3):
     dict15 = []
     for item in countrydeadtimeseries:
         dict15.append(
-            {"ISO3": item[5], "Total Results as of Date": str(item[1]), "Deaths": item[3],}
+            {"ISO3": item[5], "Total Results as of Date": str(item[1]), "Deaths": int(item[3]),}
         )
     dicts15 = json.dumps(dict15)
     return dicts15
@@ -504,7 +503,7 @@ def countryrecoveredtimeseries(iso3):
     dict16 = []
     for item in countryrecoveredtimeseries:
         dict16.append(
-            {"ISO3": item[5], "Total Results as of Date": str(item[1]), "Recovered": item[4],}
+            {"ISO3": item[5], "Total Results as of Date": str(item[1]), "Recovered": int(item[4]),}
         )
     dicts16 = json.dumps(dict16)
     return dicts16
@@ -532,9 +531,9 @@ def worldwidetotalsdate(asof):
                 "ISO3": item[5],
                 "country": item[0],
                 "Date": str(item[1]),
-                "Cases": item[2],
-                "Deaths": item[3],
-                "Recovered": item[4],
+                "Cases": int(item[2]),
+                "Deaths": int(item[3]),
+                "Recovered": int(item[4]),
             }
         )
     dicts17 = json.dumps(dict17)
@@ -560,7 +559,7 @@ def worldwidecasesdate(asof):
     dict18 = []
     for item in worldwidecasesdate:
         dict18.append(
-            {"ISO3": item[5], "country": item[0], "Cases": item[2], "Last Update": str(item[1])}
+            {"ISO3": item[5], "country": item[0], "Cases": int(item[2]), "Last Update": str(item[1])}
         )
     dicts18 = json.dumps(dict18)
     return dicts18
@@ -587,7 +586,7 @@ def worldwidedeaddate(asof):
     dict19 = []
     for item in worldwidedeaddate:
         dict19.append(
-            {"ISO3": item[5], "country": item[0], "Deaths": item[3], "Last Update": str(item[1])}
+            {"ISO3": item[5], "country": item[0], "Deaths": int(item[3]), "Last Update": str(item[1])}
         )
     dicts19 = json.dumps(dict19)
     return dicts19
@@ -614,7 +613,7 @@ def worldwiderecovereddate(asof):
     dict20 = []
     for item in worldwiderecovereddate:
         dict20.append(
-            {"ISO3": item[5], "country": item[0], "Recovered": item[4], "Last Update": str(item[1])}
+            {"ISO3": item[5], "country": item[0], "Recovered": int(item[4]), "Last Update": str(item[1])}
         )
     dicts20 = json.dumps(dict20)
     return dicts20
@@ -646,9 +645,9 @@ def countrytotalsdate(iso3, asof):
                 "ISO3": item[5],
                 "country": item[0],
                 "Last Update": str(item[1]),
-                "Cases": item[2],
-                "Deaths": item[3],
-                "Recovered": item[4],
+                "Cases": int(item[2]),
+                "Deaths": int(item[3]),
+                "Recovered": int(item[4]),
             }
         )
     dicts21 = json.dumps(dict21)
@@ -677,7 +676,7 @@ def countrycasesdate(iso3, asof):
     dict22 = []
     for item in countrycasesdate:
         dict22.append(
-            {"ISO3": item[5], "country": item[0], "Cases": item[2], "Last Updated": str(item[1])}
+            {"ISO3": item[5], "country": item[0], "Cases": int(item[2]), "Last Updated": str(item[1])}
         )
     dicts22 = json.dumps(dict22)
     return dicts22
@@ -705,7 +704,7 @@ def countrydeaddate(iso3, asof):
     dict23 = []
     for item in countrydeaddate:
         dict23.append(
-            {"ISO3": item[5], "country": item[0], "Deaths": item[3], "Last Update": str(item[1])}
+            {"ISO3": item[5], "country": item[0], "Deaths": int(item[3]), "Last Update": str(item[1])}
         )
     dicts23 = json.dumps(dict23)
     return dicts23
@@ -733,7 +732,7 @@ def countryrecovereddate(iso3, asof):
     dict24 = []
     for item in countryrecovereddate:
         dict24.append(
-            {"ISO3": item[5], "country": item[0], "Recovered": item[4], "Last Update": str(item[1]),}
+            {"ISO3": item[5], "country": item[0], "Recovered": int(item[4]), "Last Update": str(item[1]),}
         )
     dicts24 = json.dumps(dict24)
     return dicts24
@@ -758,9 +757,9 @@ def globaltotals():
         dict25.append(
             {
                 "Last Update": str(item[1]),
-                "Cases": item[2],
-                "Deaths": item[3],
-                "Recovered": item[4],
+                "Cases": int(item[2]),
+                "Deaths": int(item[3]),
+                "Recovered": int(item[4]),
             }
         )
     dicts25 = json.dumps(dict25)
@@ -787,7 +786,7 @@ def globalcases():
     dict26 = []
     for item in globalcases:
         dict26.append(
-            {"Cases": item[2], "Last Update": str(item[1])}
+            {"Cases": int(item[2]), "Last Update": str(item[1])}
         )
     dicts26 = json.dumps(dict26)
     return dicts26
@@ -813,7 +812,7 @@ def globaldead():
     dict27 = []
     for item in globaldead:
         dict27.append(
-            {"Deaths": item[3], "Last Update": str(item[1])}
+            {"Deaths": int(item[3]), "Last Update": str(item[1])}
         )
     dicts27 = json.dumps(dict27)
     return dicts27
@@ -839,7 +838,7 @@ def globalcovered():
     dict28 = []
     for item in globalrecovered:
         dict28.append(
-            {"Recovered": item[4], "Last Update": str(item[1])}
+            {"Recovered": int(item[4]), "Last Update": str(item[1])}
         )
     dicts28 = json.dumps(dict28)
     return dicts28
@@ -865,9 +864,9 @@ def globallytotalsdate(asof):
         dict29.append(
             {
                 "Last Update": str(item[1]),
-                "Cases": item[2],
-                "Deaths": item[3],
-                "Recovered": item[4],
+                "Cases": int(item[2]),
+                "Deaths": int(item[3]),
+                "Recovered": int(item[4]),
             }
         )
     dicts29 = json.dumps(dict29)
@@ -893,7 +892,7 @@ def globallycasesdate(asof):
     dict30 = []
     for item in globallycasesdate:
         dict30.append(
-            {"Cases": item[2], "Last Updated": str(item[1])}
+            {"Cases": int(item[2]), "Last Updated": str(item[1])}
         )
     dicts30 = json.dumps(dict30)
     return dicts30
@@ -918,7 +917,7 @@ def globallydeaddate(asof):
     dict31 = []
     for item in globallydeaddate:
         dict31.append(
-            {"Deaths": item[3], "Last Update": str(item[1])}
+            {"Deaths": int(item[3]), "Last Update": str(item[1])}
         )
     dicts31 = json.dumps(dict31)
     return dicts31
@@ -943,7 +942,7 @@ def globallyrecovereddate(asof):
     dict32 = []
     for item in globallyrecovereddate:
         dict32.append(
-            {"Recovered": item[4], "Last Update": str(item[1]),}
+            {"Recovered": int(item[4]), "Last Update": str(item[1]),}
         )
     dicts32 = json.dumps(dict32)
     return dicts32
