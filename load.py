@@ -3,6 +3,8 @@ import pandas as pd
 import requests 
 from sqlalchemy import create_engine
 import datetime
+import country_converter as coco
+
 
 from mySQLCredentials import *
 
@@ -39,30 +41,33 @@ covid_merge2 = pd.merge(covid_merge1, recovered_df, how="outer")
 covid_merge2["date"] = pd.to_datetime(covid_merge2["date"])
 covid_merge2["date"] = covid_merge2["date"].dt.date
 
+# Change "UK" for "United Kingdom"
+covid_merge2 = covid_merge2.replace(to_replace="UK", value="United Kingdom")
+
+# Add column ISO3 to "covid_merge2"
+some_names_confirmed = list(covid_merge2.country_region)
+standard_names = coco.convert(
+    names=some_names_confirmed, to="name_short", not_found="n/a"
+)
+iso3_codes = coco.convert(names=standard_names, to="iso3", not_found=None)
+covid_merge2["iso3"] = iso3_codes
+covid_df = covid_merge2
+
+# Create a customized dataframe for Sinah's plots
 ### Add column ISO3 to "covid_df"
 iso_url = "https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/UID_ISO_FIPS_LookUp_Table.csv"
 iso_html = requests.get(iso_url).text
 iso_df = pd.read_html(iso_html)[0]
 iso3_df = iso_df[["iso3", "Country_Region", "Province_State"]].rename(columns={"Country_Region": "country_region", "Province_State": "province_state"})
 iso3_df = iso3_df.loc[iso3_df["province_state"].isnull()].drop("province_state", 1)
-# iso3_df.to_csv("iso3.csv")
-# iso3_df = pd.read_csv("iso3.csv", index_col=0)
-covid_df = pd.merge(covid_merge2, iso3_df, how="left")
-
-# Create a customized dataframe for Sinah's plots
 old_pop_df = pd.read_csv("older_pop_2018.csv")
+
 covid_df2 = covid_df[["country_region", "date", "province_state", "confirmed", "deaths", "recovered"]]
 covid_df2 = covid_df2.groupby(["country_region", "date"]).sum().reset_index()
 covid_df2["case_fatality"] = round(covid_df2["deaths"] / covid_df2["confirmed"] * 100, 2)
 covid_df3 = pd.merge(covid_df2, iso3_df, how="left")
 plot_df = pd.merge(covid_df3, old_pop_df, how="left")
 plot_df = plot_df.loc[plot_df["date"] >= datetime.date(2020,3,1)].reset_index().drop("index", axis=1)
-
-### US Data
-# us_confirmed_url = "https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_US.csv"
-# us_confirmed_html = requests.get(us_confirmed_url).text 
-# us_confirmed_df = pd.read_html(us_confirmed_html)[0]
-# print(us_confirmed_df)
 
 # Connect to the "Covid" database in MySQL (CHANGE PASSWORD)
 HOSTNAME = "127.0.0.1"
@@ -78,7 +83,7 @@ connection_string = ( f"{DIALECT}+{DRIVER}://{USERNAME}:{PASSWORD}@{HOSTNAME}:{P
 engine = create_engine(connection_string)
 
 # Create "daily_cases" table in "Covid" database with "covid_db" dataframe
-covid_df.to_sql(con=engine, name="daily_cases", if_exists="replace")
+covid_merge2.to_sql(con=engine, name="daily_cases", if_exists="replace")
 plot_df.to_sql(con=engine, name="plotting", if_exists="replace")
 
 # CREATE [OR REPLACE] [TEMPORARY] TABLE [IF NOT EXISTS] tbl_name
