@@ -8,12 +8,7 @@ black = "*"
 
 [packages]
 pandas = "*"
-beautifulsoup4 = "*"
-ipykernel = "*"
-bs4 = "*"
 requests = "*"
-splinter = "*"
-selenium = "*"
 lxml = "*"
 sqlalchemy = "*"
 pymysql = "*"
