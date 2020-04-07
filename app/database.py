@@ -22,7 +22,7 @@ connection_string = (
 engine = create_engine(connection_string, echo=False)
 
 engine.execute(f"USE {DATABASE}")
-engine.execute(f"SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));")
+engine.execute(f"SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))")
 
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
