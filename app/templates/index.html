@@ -11,7 +11,7 @@
                     <div class="card bg-dark float-right" style="width: 30rem">
                         <div class="card-body">
                             <h3 class="card-title cardH3">Total World Cases</h3>
-                            <p class="card-text cardP">{{ cases }}</p>
+                            <p class="card-text cardP">{{ "{:,.0f}".format(cases) }}</p>
                         </div>
                     </div>
                 </div>
@@ -19,7 +19,7 @@
                     <div class="card float-right" style="width: 30rem">
                         <div class="card-body">
                             <h3 class="card-title cardH3 text-dark">Total World Deaths</h3>
-                            <p class="card-text cardP text-dark">{{ deaths }}</p>
+                            <p class="card-text cardP text-dark">{{ "{:,.0f}".format(deaths) }}</p>
                         </div>
                     </div>
                 </div>
@@ -27,7 +27,7 @@
                     <div class="card float-right bg-dark" style="width: 30rem">
                         <div class="card-body">
                             <h3 class="card-title cardH3">Total World Recovered</h3>
-                            <p class="card-text cardP">{{ recovered }}</p>
+                            <p class="card-text cardP">{{ "{:,.0f}".format(recovered) }}</p>
                         </div>
                     </div>
                 </div>
