@@ -2,38 +2,53 @@
 import plotly.graph_objects as go
 import plotly.offline
 import pandas as pd
-import datetime
+from database import connection_string
+import datetime as dt
 import os
 #%%
-raw_df = pd.read_json(path_or_buf = "http://127.0.0.1:5000/records/", orient="records", convert_dates=True)
-raw_df["date"] = raw_df["date"].apply(lambda x: x.strftime('%Y-%m-%d'))
-#%%
-all_dates = raw_df["date"].unique()
-max_date = max(all_dates)
+def load_data():
+
+    df = pd.read_sql(
+        "SELECT * FROM plotting",
+        con=connection_string, 
+        index_col="index"
+    )
+    return df
+
+raw_df = load_data()
+date_series = raw_df["date"].unique()
+max_date = max(date_series)
+
+colorscale_dict = {"confirmed":"Blues", "deaths": "Reds", "recovered": "Greens"}
 
 #%%
 confirmed_fig = go.Figure()
-deaths_fig = go.Figure()
-recovered_fig = go.Figure()
+# deaths_fig = go.Figure()
+# recovered_fig = go.Figure()
 #%%
-def create_traces(fig, df, confirmed_died_recovered):
-    all_dates = df["date"].unique()
-    for date in all_dates:
+def create_traces(fig, df, confirmed_deaths_recovered, date_series=date_series,  colorscale_dict=colorscale_dict):
+    for date in date_series:
         trace_df = df[df["date"] == date]
         fig.add_trace(
-            go.Choropleth(
+            dict(
+                type="choropleth",
                 locations = trace_df["iso3"],
                 locationmode = "ISO-3",
-                z = trace_df[confirmed_died_recovered],
-                text = f"{confirmed_died_recovered.title()}",
-                autocolorscale=True,
-                customdata=[date]  
-            ),
+                z = trace_df[confirmed_deaths_recovered],
+                colorscale = colorscale_dict[confirmed_deaths_recovered],
+            )
+            # go.Choropleth(
+            #     locations = trace_df["iso3"],
+            #     locationmode = "ISO-3",
+            #     z = trace_df[confirmed_deaths_recovered],
+            #     text = f"{confirmed_deaths_recovered.title()}",
+            #     colorscale = colorscale_dict[confirmed_deaths_recovered],
+            # ),
         )
 
     fig.update_layout(
         title={
-        "text": f"COVID-19 {confirmed_died_recovered.title()} Cases as of {max(all_dates)}",
+        "text": f"COVID-19 {confirmed_deaths_recovered.title()} as of {max(date_series)}",
         "y":0.95,
         "x":0.5,
         "xanchor": "center",
@@ -46,17 +61,15 @@ def create_traces(fig, df, confirmed_died_recovered):
 		    },
 		    "oceancolor": '#3399ff',
 		    "showcountries": True,
-	    }
+	    },
     )
 
 
 
 create_traces(confirmed_fig, raw_df, "confirmed")
-create_traces(deaths_fig, raw_df, "deaths")
-create_traces(recovered_fig, raw_df, "recovered")
 
 #%%
-def create_slider(fig, confirmed_died_recovered):
+def create_slider(fig, confirmed_deaths_recovered, date_series=date_series):
     steps = []
     for i in range(len(fig.data)):
         step = dict(
@@ -64,11 +77,8 @@ def create_slider(fig, confirmed_died_recovered):
             args=[
                 # make ith trace visible
                 {"visible": [date == i for date in range(len(fig.data))]},
-                
-                # add title based on trace's metadata
-                # {"title.text": f"COVID-19 {confirmed_died_recovered.title()} Cases (as of ({str(fig.data[i].meta["customdata"])}"}
-                # META DATA WILL NOT WORK
                 ],
+            label = str(date_series[i])
         )
         steps.append(step)
 
