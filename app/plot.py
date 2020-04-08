@@ -1,4 +1,5 @@
 # Dependencies
+import sqlalchemy
 import plotly.express as px
 import plotly.graph_objects as go
 import plotly.offline
@@ -6,8 +7,9 @@ import plotly
 import pandas as pd
 from sqlalchemy import create_engine
 import datetime
-from .database import connection_string
 import json
+
+connection_string = "mysql+pymysql://root:ehaarmanny@/Covid?unix_socket=/cloudsql/project2-270717:us-central1:covid2019"
 
 # Import data into dataframe
 def load_data():
