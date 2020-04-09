@@ -47,7 +47,8 @@ def home():
     deaths = json.loads(globaltotals())[0].get("Deaths")
     cases = json.loads(globaltotals())[0].get("Cases")
     recovered = json.loads(globaltotals())[0].get("Recovered")
-    return render_template("index.html", bar=bar_fig(), deaths=deaths, cases=cases, recovered=recovered, dateUpdated=dateUpdated)
+    case_fatality = round(deaths/cases*100, 2)
+    return render_template("index.html", bar=bar_fig(), deaths=deaths, cases=cases, recovered=recovered, dateUpdated=dateUpdated, case_fatality=case_fatality)
 
 
 @app.route("/routes")
@@ -57,7 +58,6 @@ def routes():
 @app.route("/team")
 def team():
     return render_template("team.html")
-
 
 # API Route 1: Most Recent Totals for Every Country Worldwide
 @app.route("/API/most_recent/")

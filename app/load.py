@@ -4,9 +4,7 @@ import requests
 from sqlalchemy import create_engine
 import datetime
 import country_converter as coco
-
-
-from mySQLCredentials import *
+import sqlalchemy
 
 ### World Data
 # Covid-19 Confirmed Cases
@@ -69,17 +67,10 @@ covid_df3 = pd.merge(covid_df2, iso3_df, how="left")
 plot_df = pd.merge(covid_df3, old_pop_df, how="left")
 plot_df = plot_df.loc[plot_df["date"] >= datetime.date(2020,3,1)].reset_index().drop("index", axis=1)
 
-# Connect to the "Covid" database in MySQL (CHANGE PASSWORD)
-HOSTNAME = "127.0.0.1"
-PORT = 3306
-USERNAME = mySQLUsername
-PASSWORD = mySQLPassword
-DIALECT = "mysql"
-DRIVER = "pymysql"
-DATABASE = "Covid"
+# Connect to the "Covid" database
 TABLE_WORLD_TIMESERIES = "world_timeseries"
 
-connection_string = ( f"{DIALECT}+{DRIVER}://{USERNAME}:{PASSWORD}@{HOSTNAME}:{PORT}/{DATABASE}" )
+connection_string = "mysql+pymysql://root:ehaarmanny@/Covid?unix_socket=/cloudsql/project2-270717:us-central1:covid2019"
 engine = create_engine(connection_string)
 
 # Create "daily_cases" table in "Covid" database with "covid_db" dataframe

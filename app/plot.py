@@ -41,10 +41,10 @@ def bar_fig():
         orientation="h",
         x=list(confirmed_df["confirmed"]),
         y=list(confirmed_df["country_region"]),
-        marker={'color': list(confirmed_df["confirmed"]), 'colorscale': 'OrRd'},
+        marker={'color': list(confirmed_df["confirmed"]), 'colorscale': 'matter'},
         text=list(confirmed_df["confirmed"]),
-        texttemplate='%{text: .OF}', 
-        hovertemplate='%{y}:%{x: .0F}'
+        texttemplate='%{text: ,.OF}', 
+        hovertemplate='%{y}:%{x: ,.0F}'
     )
 
     trace2 = go.Bar(
@@ -54,8 +54,8 @@ def bar_fig():
         y=list(deaths_df["country_region"]),
         marker={'color': list(deaths_df["deaths"]), 'colorscale': 'turbid'},
         text=list(deaths_df["deaths"]),
-        texttemplate='%{text: .OF}', 
-        hovertemplate = '%{y}:%{x: .0F}',
+        texttemplate='%{text: ,.OF}', 
+        hovertemplate = '%{y}:%{x: ,.0F}',
         visible=False
     )
 
@@ -66,8 +66,8 @@ def bar_fig():
         y=list(recovered_df["country_region"]),
         marker={'color': list(recovered_df["recovered"]), 'colorscale': 'Emrld'},
         text=list(recovered_df["recovered"]),
-        texttemplate='%{text: .OF}', 
-        hovertemplate = '%{y}:%{x: .0F}',
+        texttemplate='%{text: ,.OF}', 
+        hovertemplate = '%{y}:%{x: ,.0F}',
         visible=False
     )
 
@@ -92,6 +92,9 @@ def bar_fig():
     bar_fig.update_traces(textposition='outside', textfont_size=12)
 
     bar_fig.update_layout(
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='white',
+        margin=dict(pad=10),
         title={
             'text': f'Top 20 Countries by COVID-19 Confirmed Cases ({max_date})',
             'y':0.95,
@@ -102,11 +105,10 @@ def bar_fig():
         xaxis= {'showgrid': True},
         font=dict(
             family='-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji',
-            size=18,
+            size=16,
             color='rgb(119, 88, 2)'),
         showlegend=False,
-        height=900,
-        paper_bgcolor='rgba(0,0,0,0)'
+        height=800,
     )
 
     # Add buttons
@@ -185,18 +187,31 @@ def bubble_fig():
         color="Country",
         size_max=80, 
         range_x=[5,25], 
-        range_y=[0,14],
+        range_y=[0,15],
         text="Country",
-        
     )
 
     bubble_fig.update_traces(
         textposition='top center', 
-        textfont=dict(size=12, family="Courier New, monospace"),
+        textfont=dict(size=13, color='black', family="Courier New, monospace"),
+        marker=dict(line=dict(color='DarkSlateGrey')),
     )
 
-    bubble_fig.update_xaxes(ticksuffix="%", tickfont=dict(size=14))
-    bubble_fig.update_yaxes(ticksuffix="%", tickfont=dict(size=14))
+    bubble_fig.update_xaxes(
+        ticksuffix="%", 
+        tickfont=dict(size=14), 
+        gridcolor='lightgrey', 
+        showline=True,
+        mirror=True,
+        linecolor='rgb(119, 88, 2)')
+
+    bubble_fig.update_yaxes(
+        ticksuffix="%", 
+        tickfont=dict(size=14), 
+        gridcolor='lightgrey', 
+        showline=True,
+        mirror=True,
+        linecolor='rgb(119, 88, 2)')
 
     bubble_fig.update_layout(
         title={
@@ -204,17 +219,19 @@ def bubble_fig():
             'y':1.0,
             'x':0.5,
             'xanchor': 'center',
-            'yanchor': 'top'},
-        margin=dict(t=100),
+            'yanchor': 'top',
+            'font': {'size': 24}},
+        margin=dict(t=80),
         font=dict(
             family='-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji',
-            size=20,
+            size=14,
             color='rgb(119, 88, 2)'),
         xaxis_title="Age 65 and Above (% of Total Population)",
         yaxis_title="Case Fatality Rate (%)",
         showlegend=False,
-        height=900,
+        height=800,
         paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='white',
     )
 
     return json.dumps(bubble_fig, cls=plotly.utils.PlotlyJSONEncoder)
