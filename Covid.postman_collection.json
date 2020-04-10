@@ -11,7 +11,18 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "https://covid-mgzrmsj5kq-uc.a.run.app/API/most_recent",
+					"protocol": "https",
+					"host": [
+						"covid-mgzrmsj5kq-uc",
+						"a",
+						"run",
+						"app"
+					],
+					"path": [
+						"API",
+						"most_recent"
+					]
 				}
 			},
 			"response": []
@@ -22,7 +33,18 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "https://covid-mgzrmsj5kq-uc.a.run.app/API/cases",
+					"protocol": "https",
+					"host": [
+						"covid-mgzrmsj5kq-uc",
+						"a",
+						"run",
+						"app"
+					],
+					"path": [
+						"API",
+						"cases"
+					]
 				}
 			},
 			"response": []
@@ -33,7 +55,18 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "https://covid-mgzrmsj5kq-uc.a.run.app/API/dead",
+					"protocol": "https",
+					"host": [
+						"covid-mgzrmsj5kq-uc",
+						"a",
+						"run",
+						"app"
+					],
+					"path": [
+						"API",
+						"dead"
+					]
 				}
 			},
 			"response": []
@@ -44,7 +77,18 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "https://covid-mgzrmsj5kq-uc.a.run.app/API/recovered",
+					"protocol": "https",
+					"host": [
+						"covid-mgzrmsj5kq-uc",
+						"a",
+						"run",
+						"app"
+					],
+					"path": [
+						"API",
+						"recovered"
+					]
 				}
 			},
 			"response": []
@@ -55,7 +99,18 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "https://covid-mgzrmsj5kq-uc.a.run.app/API/usa",
+					"protocol": "https",
+					"host": [
+						"covid-mgzrmsj5kq-uc",
+						"a",
+						"run",
+						"app"
+					],
+					"path": [
+						"API",
+						"usa"
+					]
 				}
 			},
 			"response": []
@@ -66,7 +121,19 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "https://covid-mgzrmsj5kq-uc.a.run.app/API/cases/usa",
+					"protocol": "https",
+					"host": [
+						"covid-mgzrmsj5kq-uc",
+						"a",
+						"run",
+						"app"
+					],
+					"path": [
+						"API",
+						"cases",
+						"usa"
+					]
 				}
 			},
 			"response": []
@@ -77,7 +144,19 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "https://covid-mgzrmsj5kq-uc.a.run.app/API/dead/usa",
+					"protocol": "https",
+					"host": [
+						"covid-mgzrmsj5kq-uc",
+						"a",
+						"run",
+						"app"
+					],
+					"path": [
+						"API",
+						"dead",
+						"usa"
+					]
 				}
 			},
 			"response": []
@@ -88,7 +167,19 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "https://covid-mgzrmsj5kq-uc.a.run.app/API/recovered/usa",
+					"protocol": "https",
+					"host": [
+						"covid-mgzrmsj5kq-uc",
+						"a",
+						"run",
+						"app"
+					],
+					"path": [
+						"API",
+						"recovered",
+						"usa"
+					]
 				}
 			},
 			"response": []
@@ -99,7 +190,20 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "https://covid-mgzrmsj5kq-uc.a.run.app/API/usa/timeseries/",
+					"protocol": "https",
+					"host": [
+						"covid-mgzrmsj5kq-uc",
+						"a",
+						"run",
+						"app"
+					],
+					"path": [
+						"API",
+						"usa",
+						"timeseries",
+						""
+					]
 				}
 			},
 			"response": []
@@ -110,7 +214,18 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "https://covid-mgzrmsj5kq-uc.a.run.app/API/timeseries",
+					"protocol": "https",
+					"host": [
+						"covid-mgzrmsj5kq-uc",
+						"a",
+						"run",
+						"app"
+					],
+					"path": [
+						"API",
+						"timeseries"
+					]
 				}
 			},
 			"response": []
@@ -121,7 +236,19 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "https://covid-mgzrmsj5kq-uc.a.run.app/API/cases/timeseries",
+					"protocol": "https",
+					"host": [
+						"covid-mgzrmsj5kq-uc",
+						"a",
+						"run",
+						"app"
+					],
+					"path": [
+						"API",
+						"cases",
+						"timeseries"
+					]
 				}
 			},
 			"response": []
@@ -132,7 +259,19 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "https://covid-mgzrmsj5kq-uc.a.run.app/API/dead/timeseries",
+					"protocol": "https",
+					"host": [
+						"covid-mgzrmsj5kq-uc",
+						"a",
+						"run",
+						"app"
+					],
+					"path": [
+						"API",
+						"dead",
+						"timeseries"
+					]
 				}
 			},
 			"response": []
@@ -143,7 +282,19 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "https://covid-mgzrmsj5kq-uc.a.run.app/API/recovered/timeseries",
+					"protocol": "https",
+					"host": [
+						"covid-mgzrmsj5kq-uc",
+						"a",
+						"run",
+						"app"
+					],
+					"path": [
+						"API",
+						"recovered",
+						"timeseries"
+					]
 				}
 			},
 			"response": []
@@ -154,7 +305,20 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "https://covid-mgzrmsj5kq-uc.a.run.app/API/cases/usa/timeseries",
+					"protocol": "https",
+					"host": [
+						"covid-mgzrmsj5kq-uc",
+						"a",
+						"run",
+						"app"
+					],
+					"path": [
+						"API",
+						"cases",
+						"usa",
+						"timeseries"
+					]
 				}
 			},
 			"response": []
@@ -165,7 +329,20 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "https://covid-mgzrmsj5kq-uc.a.run.app/API/dead/usa/timeseries",
+					"protocol": "https",
+					"host": [
+						"covid-mgzrmsj5kq-uc",
+						"a",
+						"run",
+						"app"
+					],
+					"path": [
+						"API",
+						"dead",
+						"usa",
+						"timeseries"
+					]
 				}
 			},
 			"response": []
@@ -176,7 +353,20 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "https://covid-mgzrmsj5kq-uc.a.run.app/API/recovered/usa/timeseries",
+					"protocol": "https",
+					"host": [
+						"covid-mgzrmsj5kq-uc",
+						"a",
+						"run",
+						"app"
+					],
+					"path": [
+						"API",
+						"recovered",
+						"usa",
+						"timeseries"
+					]
 				}
 			},
 			"response": []
@@ -187,7 +377,19 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "https://covid-mgzrmsj5kq-uc.a.run.app/API/bydate/2020-03-28",
+					"protocol": "https",
+					"host": [
+						"covid-mgzrmsj5kq-uc",
+						"a",
+						"run",
+						"app"
+					],
+					"path": [
+						"API",
+						"bydate",
+						"2020-03-28"
+					]
 				}
 			},
 			"response": []
@@ -198,7 +400,20 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "https://covid-mgzrmsj5kq-uc.a.run.app/API/cases/bydate/2020-03-28",
+					"protocol": "https",
+					"host": [
+						"covid-mgzrmsj5kq-uc",
+						"a",
+						"run",
+						"app"
+					],
+					"path": [
+						"API",
+						"cases",
+						"bydate",
+						"2020-03-28"
+					]
 				}
 			},
 			"response": []
@@ -209,7 +424,20 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "https://covid-mgzrmsj5kq-uc.a.run.app/API/dead/bydate/2020-03-28",
+					"protocol": "https",
+					"host": [
+						"covid-mgzrmsj5kq-uc",
+						"a",
+						"run",
+						"app"
+					],
+					"path": [
+						"API",
+						"dead",
+						"bydate",
+						"2020-03-28"
+					]
 				}
 			},
 			"response": []
@@ -220,7 +448,20 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "https://covid-mgzrmsj5kq-uc.a.run.app/API/recovered/bydate/2020-03-28",
+					"protocol": "https",
+					"host": [
+						"covid-mgzrmsj5kq-uc",
+						"a",
+						"run",
+						"app"
+					],
+					"path": [
+						"API",
+						"recovered",
+						"bydate",
+						"2020-03-28"
+					]
 				}
 			},
 			"response": []
@@ -231,7 +472,20 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "https://covid-mgzrmsj5kq-uc.a.run.app/API/usa/bydate/2020-03-28",
+					"protocol": "https",
+					"host": [
+						"covid-mgzrmsj5kq-uc",
+						"a",
+						"run",
+						"app"
+					],
+					"path": [
+						"API",
+						"usa",
+						"bydate",
+						"2020-03-28"
+					]
 				}
 			},
 			"response": []
@@ -242,7 +496,21 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "https://covid-mgzrmsj5kq-uc.a.run.app/API/cases/usa/bydate/2020-03-28",
+					"protocol": "https",
+					"host": [
+						"covid-mgzrmsj5kq-uc",
+						"a",
+						"run",
+						"app"
+					],
+					"path": [
+						"API",
+						"cases",
+						"usa",
+						"bydate",
+						"2020-03-28"
+					]
 				}
 			},
 			"response": []
@@ -253,7 +521,21 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "https://covid-mgzrmsj5kq-uc.a.run.app/API/dead/usa/bydate/2020-03-28",
+					"protocol": "https",
+					"host": [
+						"covid-mgzrmsj5kq-uc",
+						"a",
+						"run",
+						"app"
+					],
+					"path": [
+						"API",
+						"dead",
+						"usa",
+						"bydate",
+						"2020-03-28"
+					]
 				}
 			},
 			"response": []
@@ -264,7 +546,21 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "https://covid-mgzrmsj5kq-uc.a.run.app/API/recovered/usa/bydate/2020-03-28",
+					"protocol": "https",
+					"host": [
+						"covid-mgzrmsj5kq-uc",
+						"a",
+						"run",
+						"app"
+					],
+					"path": [
+						"API",
+						"recovered",
+						"usa",
+						"bydate",
+						"2020-03-28"
+					]
 				}
 			},
 			"response": []
@@ -275,7 +571,19 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "https://covid-mgzrmsj5kq-uc.a.run.app/API/global/most_recent",
+					"protocol": "https",
+					"host": [
+						"covid-mgzrmsj5kq-uc",
+						"a",
+						"run",
+						"app"
+					],
+					"path": [
+						"API",
+						"global",
+						"most_recent"
+					]
 				}
 			},
 			"response": []
@@ -286,7 +594,19 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "https://covid-mgzrmsj5kq-uc.a.run.app/API/global/cases",
+					"protocol": "https",
+					"host": [
+						"covid-mgzrmsj5kq-uc",
+						"a",
+						"run",
+						"app"
+					],
+					"path": [
+						"API",
+						"global",
+						"cases"
+					]
 				}
 			},
 			"response": []
@@ -297,7 +617,19 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "https://covid-mgzrmsj5kq-uc.a.run.app/API/global/dead",
+					"protocol": "https",
+					"host": [
+						"covid-mgzrmsj5kq-uc",
+						"a",
+						"run",
+						"app"
+					],
+					"path": [
+						"API",
+						"global",
+						"dead"
+					]
 				}
 			},
 			"response": []
@@ -308,7 +640,19 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "https://covid-mgzrmsj5kq-uc.a.run.app/API/global/recovered",
+					"protocol": "https",
+					"host": [
+						"covid-mgzrmsj5kq-uc",
+						"a",
+						"run",
+						"app"
+					],
+					"path": [
+						"API",
+						"global",
+						"recovered"
+					]
 				}
 			},
 			"response": []
@@ -319,7 +663,20 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "https://covid-mgzrmsj5kq-uc.a.run.app/API/global/bydate/2020-03-28",
+					"protocol": "https",
+					"host": [
+						"covid-mgzrmsj5kq-uc",
+						"a",
+						"run",
+						"app"
+					],
+					"path": [
+						"API",
+						"global",
+						"bydate",
+						"2020-03-28"
+					]
 				}
 			},
 			"response": []
@@ -330,7 +687,21 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "https://covid-mgzrmsj5kq-uc.a.run.app/API/cases/global/bydate/2020-03-28",
+					"protocol": "https",
+					"host": [
+						"covid-mgzrmsj5kq-uc",
+						"a",
+						"run",
+						"app"
+					],
+					"path": [
+						"API",
+						"cases",
+						"global",
+						"bydate",
+						"2020-03-28"
+					]
 				}
 			},
 			"response": []
@@ -341,7 +712,21 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "https://covid-mgzrmsj5kq-uc.a.run.app/API/dead/global/bydate/2020-03-28",
+					"protocol": "https",
+					"host": [
+						"covid-mgzrmsj5kq-uc",
+						"a",
+						"run",
+						"app"
+					],
+					"path": [
+						"API",
+						"dead",
+						"global",
+						"bydate",
+						"2020-03-28"
+					]
 				}
 			},
 			"response": []
@@ -352,7 +737,21 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "https://covid-mgzrmsj5kq-uc.a.run.app/API/recovered/global/bydate/2020-03-28",
+					"protocol": "https",
+					"host": [
+						"covid-mgzrmsj5kq-uc",
+						"a",
+						"run",
+						"app"
+					],
+					"path": [
+						"API",
+						"recovered",
+						"global",
+						"bydate",
+						"2020-03-28"
+					]
 				}
 			},
 			"response": []
