@@ -14,16 +14,13 @@ connection_string = "mysql+pymysql://root:ehaarmanny@/Covid?unix_socket=/cloudsq
 # Import data into dataframe
 def load_data():
 
-    df = pd.read_sql(
-        "SELECT * FROM plotting",
-        con=connection_string, 
-        index_col="index"
-    )
+    df = pd.read_sql("SELECT * FROM plotting", con=connection_string, index_col="index")
     return df
+
 
 # Define Bar Figure
 def bar_fig():
-    
+
     df = load_data()
     max_date = max(df["date"])
     max_date_df = df.loc[df["date"] == max_date].copy()
@@ -41,10 +38,10 @@ def bar_fig():
         orientation="h",
         x=list(confirmed_df["confirmed"]),
         y=list(confirmed_df["country_region"]),
-        marker={'color': list(confirmed_df["confirmed"]), 'colorscale': 'matter'},
+        marker={"color": list(confirmed_df["confirmed"]), "colorscale": "matter"},
         text=list(confirmed_df["confirmed"]),
-        texttemplate='%{text: ,.OF}', 
-        hovertemplate='%{y}:%{x: ,.0F}'
+        texttemplate="%{text: ,.OF}",
+        hovertemplate="%{y}:%{x: ,.0F}",
     )
 
     trace2 = go.Bar(
@@ -52,11 +49,11 @@ def bar_fig():
         orientation="h",
         x=list(deaths_df["deaths"]),
         y=list(deaths_df["country_region"]),
-        marker={'color': list(deaths_df["deaths"]), 'colorscale': 'turbid'},
+        marker={"color": list(deaths_df["deaths"]), "colorscale": "turbid"},
         text=list(deaths_df["deaths"]),
-        texttemplate='%{text: ,.OF}', 
-        hovertemplate = '%{y}:%{x: ,.0F}',
-        visible=False
+        texttemplate="%{text: ,.OF}",
+        hovertemplate="%{y}:%{x: ,.0F}",
+        visible=False,
     )
 
     trace3 = go.Bar(
@@ -64,11 +61,11 @@ def bar_fig():
         orientation="h",
         x=list(recovered_df["recovered"]),
         y=list(recovered_df["country_region"]),
-        marker={'color': list(recovered_df["recovered"]), 'colorscale': 'Emrld'},
+        marker={"color": list(recovered_df["recovered"]), "colorscale": "Emrld"},
         text=list(recovered_df["recovered"]),
-        texttemplate='%{text: ,.OF}', 
-        hovertemplate = '%{y}:%{x: ,.0F}',
-        visible=False
+        texttemplate="%{text: ,.OF}",
+        hovertemplate="%{y}:%{x: ,.0F}",
+        visible=False,
     )
 
     trace4 = go.Bar(
@@ -76,11 +73,11 @@ def bar_fig():
         orientation="h",
         x=list(cf_df["case_fatality"]),
         y=list(cf_df["country_region"]),
-        marker={'color': list(cf_df["case_fatality"]), 'colorscale': 'amp'},
+        marker={"color": list(cf_df["case_fatality"]), "colorscale": "amp"},
         text=list(cf_df["case_fatality"]),
-        texttemplate='%{text: .2F}%', 
-        hovertemplate = '%{y}:%{x: .02F}%',
-        visible=False
+        texttemplate="%{text: .2F}%",
+        hovertemplate="%{y}:%{x: .02F}%",
+        visible=False,
     )
 
     # Add Traces
@@ -89,24 +86,26 @@ def bar_fig():
     bar_fig.add_trace(trace3)
     bar_fig.add_trace(trace4)
 
-    bar_fig.update_traces(textposition='outside', textfont_size=12)
+    bar_fig.update_traces(textposition="outside", textfont_size=12)
 
     bar_fig.update_layout(
-        paper_bgcolor='rgba(0,0,0,0)',
-        plot_bgcolor='white',
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="white",
         margin=dict(pad=10),
         title={
-            'text': f'Top 20 Countries by COVID-19 Confirmed Cases ({max_date})',
-            'y':0.95,
-            'x':0.5,
-            'xanchor': 'center',
-            'yanchor': 'top'},
+            "text": f"Top 20 Countries by COVID-19 Confirmed Cases ({max_date})",
+            "y": 0.95,
+            "x": 0.5,
+            "xanchor": "center",
+            "yanchor": "top",
+        },
         xaxis_domain=[0.05, 1.0],
-        xaxis= {'showgrid': True},
+        xaxis={"showgrid": True},
         font=dict(
             family='-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji',
             size=16,
-            color='rgb(119, 88, 2)'),
+            color="rgb(119, 88, 2)",
+        ),
         showlegend=False,
         height=800,
     )
@@ -126,7 +125,9 @@ def bar_fig():
                             method="update",
                             args=[
                                 {"visible": [True, False, False, False]},
-                                {"title": f'Top 20 Countries by COVID-19 Confirmed Cases ({max_date})'},
+                                {
+                                    "title": f"Top 20 Countries by COVID-19 Confirmed Cases ({max_date})"
+                                },
                             ],
                         ),
                         dict(
@@ -134,7 +135,9 @@ def bar_fig():
                             method="update",
                             args=[
                                 {"visible": [False, True, False, False]},
-                                {"title": f'Top 20 Countries by COVID-19 Deaths ({max_date})'},
+                                {
+                                    "title": f"Top 20 Countries by COVID-19 Deaths ({max_date})"
+                                },
                             ],
                         ),
                         dict(
@@ -142,7 +145,9 @@ def bar_fig():
                             method="update",
                             args=[
                                 {"visible": [False, False, True, False]},
-                                {"title": f'Top 20 Countries by COVID-19 Recovered Cases ({max_date})'},
+                                {
+                                    "title": f"Top 20 Countries by COVID-19 Recovered Cases ({max_date})"
+                                },
                             ],
                         ),
                         dict(
@@ -150,7 +155,9 @@ def bar_fig():
                             method="update",
                             args=[
                                 {"visible": [False, False, False, True]},
-                                {"title": f'Top 20 Countries by COVID-19 Case Fatality Rate ({max_date})'},
+                                {
+                                    "title": f"Top 20 Countries by COVID-19 Case Fatality Rate ({max_date})"
+                                },
                             ],
                         ),
                     ]
@@ -164,7 +171,7 @@ def bar_fig():
 
 # Define Bubble Figure
 def bubble_fig():
-    
+
     df = load_data()
     max_date = max(df["date"])
     max_date_df = df.loc[df["date"] == max_date].copy()
@@ -173,65 +180,77 @@ def bubble_fig():
     top20_countries = list(top20_df["country_region"])
     bubble_df = df.loc[df["country_region"].isin(top20_countries)].copy()
     bubble_df["older_pop"] = round(bubble_df["older_pop"], 1)
-    bubble_df["date"] = bubble_df["date"].apply(lambda x: x.strftime('%Y-%m-%d'))
-    bubble_df = bubble_df.rename(columns = {"country_region":"Country", "date":"Date", "confirmed":"Confirmed", "case_fatality":"Case Fatality", "older_pop":"Older Population"})
+    bubble_df["date"] = bubble_df["date"].apply(lambda x: x.strftime("%Y-%m-%d"))
+    bubble_df = bubble_df.rename(
+        columns={
+            "country_region": "Country",
+            "date": "Date",
+            "confirmed": "Confirmed",
+            "case_fatality": "Case Fatality",
+            "older_pop": "Older Population",
+        }
+    )
 
     # Animated bubble chart
     bubble_fig = px.scatter(
-        bubble_df, 
-        x="Older Population", 
-        y="Case Fatality", 
-        animation_frame="Date", 
+        bubble_df,
+        x="Older Population",
+        y="Case Fatality",
+        animation_frame="Date",
         animation_group="Country",
-        size="Confirmed", 
+        size="Confirmed",
         color="Country",
-        size_max=80, 
-        range_x=[5,25], 
-        range_y=[0,15],
+        size_max=80,
+        range_x=[5, 25],
+        range_y=[0, 15],
         text="Country",
     )
 
     bubble_fig.update_traces(
-        textposition='top center', 
-        textfont=dict(size=13, color='black', family="Courier New, monospace"),
-        marker=dict(line=dict(color='DarkSlateGrey')),
+        textposition="top center",
+        textfont=dict(size=13, color="black", family="Courier New, monospace"),
+        marker=dict(line=dict(color="DarkSlateGrey")),
     )
 
     bubble_fig.update_xaxes(
-        ticksuffix="%", 
-        tickfont=dict(size=14), 
-        gridcolor='lightgrey', 
+        ticksuffix="%",
+        tickfont=dict(size=14),
+        gridcolor="lightgrey",
         showline=True,
         mirror=True,
-        linecolor='rgb(119, 88, 2)')
+        linecolor="rgb(119, 88, 2)",
+    )
 
     bubble_fig.update_yaxes(
-        ticksuffix="%", 
-        tickfont=dict(size=14), 
-        gridcolor='lightgrey', 
+        ticksuffix="%",
+        tickfont=dict(size=14),
+        gridcolor="lightgrey",
         showline=True,
         mirror=True,
-        linecolor='rgb(119, 88, 2)')
+        linecolor="rgb(119, 88, 2)",
+    )
 
     bubble_fig.update_layout(
         title={
-            "text":"<br></br>Do Countries With The Oldest Populations Have Higher Fatality Rate from COVID-19? <br>",
-            'y':1.0,
-            'x':0.5,
-            'xanchor': 'center',
-            'yanchor': 'top',
-            'font': {'size': 24}},
+            "text": "<br></br>Do Countries With The Oldest Populations Have Higher Fatality Rate from COVID-19? <br>",
+            "y": 1.0,
+            "x": 0.5,
+            "xanchor": "center",
+            "yanchor": "top",
+            "font": {"size": 24},
+        },
         margin=dict(t=80),
         font=dict(
             family='-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji',
             size=14,
-            color='rgb(119, 88, 2)'),
+            color="rgb(119, 88, 2)",
+        ),
         xaxis_title="Age 65 and Above (% of Total Population)",
         yaxis_title="Case Fatality Rate (%)",
         showlegend=False,
         height=800,
-        paper_bgcolor='rgba(0,0,0,0)',
-        plot_bgcolor='white',
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="white",
     )
 
     return json.dumps(bubble_fig, cls=plotly.utils.PlotlyJSONEncoder)
