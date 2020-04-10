@@ -213,7 +213,7 @@ def bubble_fig():
 
     bubble_fig.update_layout(
         title={
-            "text":"<br></br>Do Countries With The Oldest Populatons Have Higher Fatality Rate from COVID-19? <br>",
+            "text":"<br></br>Do Countries With The Oldest Populations Have Higher Fatality Rate from COVID-19? <br>",
             'y':1.0,
             'x':0.5,
             'xanchor': 'center',
