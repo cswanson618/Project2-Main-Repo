@@ -21,6 +21,7 @@ from sqlalchemy import (
 from . import models
 from .database import SessionLocal, engine
 from .plot import bar_fig, bubble_fig
+from .map_plots import create_map
 
 import json
 
@@ -84,7 +85,7 @@ def worldwidetotals():
         dict.append(
             {
                 "ISO3": item[5],
-                "country": item[0],
+                "Country": item[0],
                 "Last Update": str(item[1]),
                 "Cases": int(item[2]),
                 "Deaths": int(item[3]),
@@ -117,7 +118,7 @@ def worldwidecases():
         dict2.append(
             {
                 "ISO3": item[3],
-                "country": item[0],
+                "Country": item[0],
                 "Cases": int(item[2]),
                 "Last Update": str(item[1]),
             }
@@ -148,7 +149,7 @@ def worldwidedead():
         dict3.append(
             {
                 "ISO3": item[3],
-                "country": item[0],
+                "Country": item[0],
                 "Deaths": int(item[2]),
                 "Last Update": str(item[1]),
             }
@@ -179,7 +180,7 @@ def worldwiderecovered():
         dict4.append(
             {
                 "ISO3": item[3],
-                "country": item[0],
+                "Country": item[0],
                 "Recovered": int(item[2]),
                 "Last Update": str(item[1]),
             }
@@ -213,7 +214,7 @@ def countrytotals(iso3):
         dict5.append(
             {
                 "ISO3": item[5],
-                "country": item[0],
+                "Country": item[0],
                 "Last Update": str(item[1]),
                 "Cases": int(item[2]),
                 "Deaths": int(item[3]),
@@ -247,7 +248,7 @@ def countrycases(iso3):
         dict6.append(
             {
                 "ISO3": item[3],
-                "country": item[0],
+                "Country": item[0],
                 "Cases": int(item[2]),
                 "Last Updated": str(item[1]),
             }
@@ -279,7 +280,7 @@ def countrydead(iso3):
         dict7.append(
             {
                 "ISO3": item[3],
-                "country": item[0],
+                "Country": item[0],
                 "Deaths": int(item[2]),
                 "Last Update": str(item[1]),
             }
@@ -311,7 +312,7 @@ def countryrecovered(iso3):
         dict8.append(
             {
                 "ISO3": item[3],
-                "country": item[0],
+                "Country": item[0],
                 "Recovered": int(item[2]),
                 "Last Update": str(item[1]),
             }
@@ -343,7 +344,7 @@ def countrytimeseries(iso3):
         dict9.append(
             {
                 "ISO3": item[5],
-                "country": item[0],
+                "Country": item[0],
                 "Total Results as of Date": str(item[1]),
                 "Cases": int(item[2]),
                 "Deaths": int(item[3]),
@@ -545,7 +546,7 @@ def worldwidetotalsdate(asof):
         dict17.append(
             {
                 "ISO3": item[5],
-                "country": item[0],
+                "Country": item[0],
                 "Date": str(item[1]),
                 "Cases": int(item[2]),
                 "Deaths": int(item[3]),
@@ -577,7 +578,7 @@ def worldwidecasesdate(asof):
         dict18.append(
             {
                 "ISO3": item[3],
-                "country": item[0],
+                "Country": item[0],
                 "Cases": int(item[2]),
                 "Last Update": str(item[1]),
             }
@@ -607,7 +608,7 @@ def worldwidedeaddate(asof):
         dict19.append(
             {
                 "ISO3": item[3],
-                "country": item[0],
+                "Country": item[0],
                 "Deaths": int(item[2]),
                 "Last Update": str(item[1]),
             }
@@ -637,7 +638,7 @@ def worldwiderecovereddate(asof):
         dict20.append(
             {
                 "ISO3": item[3],
-                "country": item[0],
+                "Country": item[0],
                 "Recovered": int(item[2]),
                 "Last Update": str(item[1]),
             }
@@ -670,7 +671,7 @@ def countrytotalsdate(iso3, asof):
         dict21.append(
             {
                 "ISO3": item[5],
-                "country": item[0],
+                "Country": item[0],
                 "Last Update": str(item[1]),
                 "Cases": int(item[2]),
                 "Deaths": int(item[3]),
@@ -703,7 +704,7 @@ def countrycasesdate(iso3, asof):
         dict22.append(
             {
                 "ISO3": item[3],
-                "country": item[0],
+                "Country": item[0],
                 "Cases": int(item[2]),
                 "Last Updated": str(item[1]),
             }
@@ -734,7 +735,7 @@ def countrydeaddate(iso3, asof):
         dict23.append(
             {
                 "ISO3": item[3],
-                "country": item[0],
+                "Country": item[0],
                 "Deaths": int(item[2]),
                 "Last Update": str(item[1]),
             }
@@ -765,7 +766,7 @@ def countryrecovereddate(iso3, asof):
         dict24.append(
             {
                 "ISO3": item[3],
-                "country": item[0],
+                "Country": item[0],
                 "Recovered": int(item[2]),
                 "Last Update": str(item[1]),
             }
@@ -964,7 +965,12 @@ def total_world():
 
 @app.route("/map")
 def map():
-    return render_template("map.html")
+    return render_template(
+        "map.html",
+        confirmed=create_map("confirmed"),
+        deaths=create_map("deaths"),
+        recovered=create_map("recovered"),
+    )
 
 
 @app.route("/plot")
