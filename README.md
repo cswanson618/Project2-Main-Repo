@@ -2,10 +2,10 @@
 
 Interactive dashboard to explore COVID-19 data from Johns Hopkins University and providing free API.
 
-### Link to the App: 
+### Link to the App: https://covid-mgzrmsj5kq-uc.a.run.app
 
 ### Update frequency:
-Once a day around 03:00 AM (UTC).
+Once a day around 08:00 PM (UTC).
 
 ### Data Sources:
 https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data
