@@ -40,6 +40,7 @@ class WorldTotalRecords(Base, DictMixIn):
     total_deaths = Column(Integer)
     total_recovered = Column(Integer)
 
+
 class Plot(Base, DictMixIn):
     __tablename__ = "plotting"
 
