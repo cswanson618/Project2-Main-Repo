@@ -28,6 +28,7 @@ from sqlalchemy import (
 from . import models
 from .database import SessionLocal, engine
 from .plot import bar_fig, bubble_fig
+from .map_plots import create_map
 
 import json
 
@@ -917,7 +918,7 @@ def total_world():
 
 @app.route("/map")
 def map():
-    return render_template("map.html")
+    return render_template("map.html", confirmed=create_map("confirmed"), deaths=create_map("deaths"), recovered=create_map("recovered"))
 
 
 @app.route("/plot")
