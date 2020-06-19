@@ -1,8 +1,10 @@
+** NOTE ** Website hosting is temporarily removed due to the cost of hosting on Google Cloud. The new URL will be provided once the hosting is back up. 
+
 # Coronavirus COVID-19 Application
 
 Interactive dashboard to explore COVID-19 data from Johns Hopkins University and providing free API.
 
-### Link to the App: https://covid-mgzrmsj5kq-uc.a.run.app
+### Link to the App:
 
 ### Update frequency:
 Once a day around 08:00 PM (CDT).
