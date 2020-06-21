@@ -4,7 +4,8 @@
 
 Interactive dashboard to explore COVID-19 data from Johns Hopkins University and providing free API.
 
-### Link to the App:
+### Link to the App: https://app-sr6kth3fza-uc.a.run.app/
+Note: This link was updated on 6.20.2020. Any prior links to this app are no longer valid. 
 
 ### Update frequency:
 Once a day around 08:00 PM (CDT).
